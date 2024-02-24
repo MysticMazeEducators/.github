@@ -1,0 +1,42 @@
+@startuml
+:Player: as Player << human >>
+:Server: as Server << application >>
+(Main Menu) as (Menu)
+(Join Game) as (Join)
+(Start Game) as (Start)
+(Server Full) as (Full)
+(Server Unavailable) as (Unavailable)
+
+Player -> (Menu)
+(Menu) --> (Join)
+(Server) <.. (Join) : invites
+(Join) --> (Start)
+(Server) <.. (Start) : Signals
+(Server) --> (Start)
+(Server) --> (Full)
+(Server) --> (Unavailable)
+(Full) --> (Menu)
+(Unavailable) --> (Menu)
+
+note right of (Join)
+Player can join
+any available server
+from the Main Menu.
+end note
+
+note left of (Full)
+Player is notified
+if the server is full.
+end note
+
+note left of (Unavailable)
+Player is notified
+if the server is unavailable.
+end note
+
+note right of (Start)
+When all players are ready,
+the game is started by the server.
+end note
+
+@enduml

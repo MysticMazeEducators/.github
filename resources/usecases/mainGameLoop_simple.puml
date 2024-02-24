@@ -1,0 +1,38 @@
+@startuml
+:Server: as Server << application >>
+:Player: as Player << human >>
+:Bot/Environment: as Bot << bot >>
+(Start Game) as (Start)
+(Next Turn) as (Next)
+(Player Action) as (Action)
+(End Game) as (End)
+
+Server --> (Start)
+Player --> (Action)
+Bot --> (Action)
+
+(Start) --> (Next)
+(Next) --> (Action)
+(Action) --> (Next)
+(Next) --> (End)
+
+note right of (Next)
+Server determines the next
+player or bot/environment turn.
+end note
+
+note right of (Action)
+Player or bot/environment performs
+an action like picking up an item,
+using an item, moving to another room,
+or ending their turn.
+end note
+
+note right of (End)
+Game ends when:
+- All students caught
+- One of the students picked up the slide ruler
+- Turn limit reached
+end note
+
+@enduml

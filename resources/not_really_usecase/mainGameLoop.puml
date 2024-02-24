@@ -1,0 +1,62 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:Server: as server << application >>
+:player: as player << Human >>
+:bot/environment: as bot << bot >>
+
+(Game starts) as (start)
+(Get next player from turn order) as (nextPlayer)
+(Calculate bot or environment actions) as (botAction)
+(Wait for human player turn) as (humanTurn)
+
+(Pick up item from ground) as (pickup)
+(Use item) as (use)
+(Get to other room) as (move)
+(Sync with server) as (getData)
+
+(End turn) as (endTurn)
+
+(Slide ruler picked up) as (winCon)
+(Turn limit reached) as (timeout)
+(All students caught) as (died)
+(End game) as (end)
+
+(getData) ..> server : request
+(server) ..> getData : response
+
+server --> (start)
+(start) --> (nextPlayer)
+(nextPlayer) --> (botAction) : If the next object in the turn order is inanimate
+(botAction) ..> bot
+(nextPlayer) --> (humanTurn) : If the next object in the turn order is a player
+(humanTurn) ..> player : Signals player turn
+
+(player) --> (pickup) : Player can pick up items in the room
+(player) --> (use) : Player can use items in the room or in their inventory
+(player) --> (move) : Player can move to other rooms
+(pickup) --> (getData)
+(use) --> (getData)
+(move) --> (getData)
+
+(getData) --> player
+(getData) --> (endTurn)
+
+(endTurn) --> (nextPlayer)
+(endTurn) --> (timeout) : If the turn limit is reached then the teachers win
+
+(getData) --> (winCon) : If the player picked up the slide ruler then the player wins
+(getData) --> (died) : If the player is caught by the teachers then the teachers win
+(timeout) -down-> (end) : Teachers won
+(died) -down-> (end) : Teachers won
+(winCon) -down-> (end) : Student won
+
+(end) ..> player : Signals game end
+
+note right of (getData)
+    This is a request to the server to get the current game state.
+    It synchronizes player actions with the server.
+    It also updates player's game state.
+end note
+
+@enduml

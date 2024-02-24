@@ -1,0 +1,21 @@
+@startuml
+:Server: as server << application >>
+:Player: as player << Human >>
+:Bot: as bot << bot >>
+(Initialize Game) as (init)
+(Game starts) as (gameStart)
+
+server --> (init)
+(init) ..> player : signals
+(init) ..> bot : signals
+player --> (init)
+bot --> (init)
+(init) --> (gameStart)
+
+note right of (init)
+This includes steps like map generation,
+random spawn room selection, bot creation,
+loading assets, etc.
+end note
+
+@enduml

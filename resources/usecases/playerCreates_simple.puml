@@ -1,0 +1,36 @@
+@startuml
+:Player: as Player << human >>
+:Server: as Server << application >>
+(Main Menu) as (Menu)
+(Host Game) as (Host)
+(Join Game) as (Join)
+(Start Game) as (Start)
+(Server Error) as (Unavailable)
+
+Player -> (Menu)
+(Menu) --> (Host)
+(Server) <.. (Host) : creates
+(Server) <.. (Join) : invites
+(Host) --> (Join)
+(Join) --> (Start)
+(Server) <.. (Start) : Signals
+(Server) --> (Start)
+(Server) --> (Unavailable)
+(Unavailable) --> (Menu)
+
+note right of (Join)
+Player automatically joins
+to the new server created by them.
+end note
+
+note right of (Unavailable)
+Player is notified
+if there was an error.
+end note
+
+note right of (Start)
+When all players are ready,
+the game is started by the server.
+end note
+
+@enduml

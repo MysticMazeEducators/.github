@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:Server: as server << application >>
+:player1: as player1 << Human, student >>
+:player2: as player2 << bot, student >>
+:player3: as player3 << Human, teacher >>
+:player4: as player4 << bot, teacher >>
+(Start game) as (start)
+(Map generation) as (map)
+(Random spawn room selection) as (spawn)
+(bot creation) as (bot)
+(Loading assets) as (loading)
+(Waiting for server) as (waitServer)
+(Waiting for players) as (waitPlayers)
+(Turn order generation) as (turnsGen)
+(Get minimum required game info) as (gameInit)
+(Game starts) as (gameStart)
+
+server --> (start)
+server --> (bot)
+player2 <.. (bot) : creates
+player4 <.. (bot) : creates
+(start) --> (map)
+(map) --> (spawn)
+(spawn) --> (turnsGen)
+(turnsGen) ..> (waitServer) : signals
+
+player2 --> (waitServer)
+player4 --> (waitServer)
+
+(start) ..> player1 : signals
+(start) ..> player3 : signals
+player1 --> (loading)
+player3 --> (loading)
+(loading) --> (waitServer)
+(waitServer) --> (gameInit) : for human players
+server <.. (gameInit) : request
+server --> (gameInit) : response
+(gameInit) --> (waitPlayers)
+server ..> (waitPlayers) : signals
+(waitServer) --> (gameStart) : for bot players
+(waitPlayers) --> (gameStart)
+
+note right of (gameInit)
+Like starting room details,
+player details, etc.
+end note
+
+@enduml
