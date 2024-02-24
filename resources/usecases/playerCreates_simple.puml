@@ -5,14 +5,13 @@
 (Host Game) as (Host)
 (Join Game) as (Join)
 (Start Game) as (Start)
-(Server Unavailable) as (Unavailable)
+(Server Error) as (Unavailable)
 
 Player -> (Menu)
 (Menu) --> (Host)
-(Menu) --> (Join)
 (Server) <.. (Host) : creates
 (Server) <.. (Join) : invites
-(Host) --> (Start)
+(Host) --> (Join)
 (Join) --> (Start)
 (Server) <.. (Start) : Signals
 (Server) --> (Start)
@@ -20,14 +19,13 @@ Player -> (Menu)
 (Unavailable) --> (Menu)
 
 note right of (Join)
-Player can join
-any available server
-from the Main Menu.
+Player automatically joins
+to the new server created by them.
 end note
 
 note right of (Unavailable)
 Player is notified
-if the server is unavailable.
+if there was an error.
 end note
 
 note right of (Start)
