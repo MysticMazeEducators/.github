@@ -2,11 +2,9 @@
 :Server: as server << application >>
 :Player: as player << Human >>
 :Bot: as bot << bot >>
-(Start game) as (start)
 (Initialize Game) as (init)
 (Game starts) as (gameStart)
 
-server --> (start)
 server --> (init)
 (init) ..> player : signals
 (init) ..> bot : signals
