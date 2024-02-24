@@ -1,0 +1,64 @@
+@startuml
+:Player: as Player << human >>
+:Server: as Server << application >>
+(Main Menu) as (Menu)
+(Play Menu) as (Play)
+(Host Server) as (Host)
+(Configure Server) as (Configure)
+(Join Server) as (Join)
+(Admin Server menu) as (ServerMenu)
+(Choose Student Role) as (Student)
+(Choose Teacher Role) as (Teacher)
+(Player Ready) as (Ready)
+(Start Game) as (Start)
+(Server Unavailable) as (Unavailable)
+
+Player -> (Menu)
+(Menu) --> (Play)
+(Play) --> (Host)
+(Host) --> (Configure)
+(Server) <.. (Configure) : creates
+(Configure) --> (Join)
+(Server) <.. (Join) : invites
+(Join) --> (ServerMenu)
+(Join) --> (Unavailable)
+(Server) --> (ServerMenu) : join succesful
+(ServerMenu) --> (Student)
+(ServerMenu) --> (Teacher)
+(Teacher) --> (Ready)
+(Student) --> (Ready)
+(Ready) --> (Start)
+(Server) <.. (Ready) : Signals
+(Server) --> (Start)
+(Server) --> (Unavailable)
+(Unavailable) --> (Play)
+
+note right of (Join)
+Player can join
+any available server
+from the Play Menu.
+end note
+
+note right of (Student)
+Player can choose
+to be a student or teacher
+from the Play Menu.
+end note
+
+note right of (Unavailable)
+Player is notified
+if the server is unavailable.
+end note
+
+note right of (Start)
+When all players are ready,
+the game is started by the server.
+end note
+
+note left of (ServerMenu)
+This allows further
+configuration of the server.
+Like player count, map, etc.
+end note
+
+@enduml

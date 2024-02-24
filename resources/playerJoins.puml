@@ -1,0 +1,62 @@
+@startuml
+:Player: as Player << human >>
+:Server: as Server << application >>
+(Main Menu) as (Menu)
+(Play Menu) as (Play)
+(Join Server) as (Join)
+(Server menu) as (ServerMenu)
+(Choose Student Role) as (Student)
+(Choose Teacher Role) as (Teacher)
+(Player Ready) as (Ready)
+(Start Game) as (Start)
+(Server Full) as (Full)
+(Server Unavailable) as (Unavailable)
+
+Player -> (Menu)
+(Menu) --> (Play)
+(Play) --> (Join)
+(Server) <.. (Join) : invites
+(Join) --> (ServerMenu)
+(Join) --> (Full)
+(Join) --> (Unavailable)
+(Server) --> (ServerMenu) : join succesful
+(ServerMenu) --> (Student)
+(ServerMenu) --> (Teacher)
+(Teacher) --> (Ready)
+(Student) --> (Ready)
+(Ready) --> (Start)
+(Server) <.. (Ready) : Signals
+(Server) --> (Start)
+(Server) --> (Full)
+(Server) --> (Unavailable)
+(Full) --> (Play)
+(Unavailable) --> (Play)
+
+note right of (Join)
+Player can join
+any available server
+from the Play Menu.
+end note
+
+note right of (Student)
+Player can choose
+to be a student or teacher
+from the Play Menu.
+end note
+
+note left of (Full)
+Player is notified
+if the server is full.
+end note
+
+note left of (Unavailable)
+Player is notified
+if the server is unavailable.
+end note
+
+note right of (Start)
+When all players are ready,
+the game is started by the server.
+end note
+
+@enduml
