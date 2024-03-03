@@ -1,0 +1,15 @@
+
+'https://plantuml.com/state-diagram
+@startuml
+scale 350 width
+
+
+@startuml
+[*] --> Alap_állapot
+Alap_állapot --> Bénult
+Bénult --> Alap_állapot
+
+Bénult --> [*]
+Alap_állapot --> [*]
+
+@enduml

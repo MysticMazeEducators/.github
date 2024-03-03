@@ -1,0 +1,23 @@
+
+'https://plantuml.com/state-diagram
+@startuml
+scale 350 width
+
+
+@startuml
+[*] --> Földön
+Földön --> Felvéve
+Felvéve --> Földön
+Felvéve --> Használva
+state Használva {
+ [*] --> Még_3_körig_érvényes
+ Még_3_körig_érvényes --> Még_2_körig_érvényes
+ Még_2_körig_érvényes --> Még_1_körig_érvényes
+ Még_1_körig_érvényes --> Eltűnt
+}
+
+Használva --> [*]
+Felvéve --> [*]
+Földön --> [*]
+
+@enduml
