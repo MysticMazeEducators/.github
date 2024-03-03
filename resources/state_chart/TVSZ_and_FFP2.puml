@@ -2,17 +2,15 @@
 'https://plantuml.com/state-diagram
 scale 350 width
 
-
-@startuml
 [*] --> Földön
 Földön --> Felvéve
 Felvéve --> Földön
 Felvéve --> Használva
 state Használva {
- [*] --> Még_3_körig_érvényes
- Még_3_körig_érvényes --> Még_2_körig_érvényes
- Még_2_körig_érvényes --> Még_1_körig_érvényes
- Még_1_körig_érvényes --> Eltűnt
+ [*] --> Még_3_alkalommal_érvényes
+ Még_3_alkalommal_érvényes --> Még_2_alkalommal_érvényes
+ Még_2_alkalommal_érvényes --> Még_1_alkalommal_érvényes
+ Még_1_alkalommal_érvényes --> Eltűnt
 }
 
 Használva --> [*]

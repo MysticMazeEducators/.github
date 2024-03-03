@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+[*] --> Nincs_a_játékosnál_tárgy
+Nincs_a_játékosnál_tárgy --> 1_tárgy
+1_tárgy --> 2_tárgy
+2_tárgy --> 1_tárgy
+1_tárgy --> Nincs_a_játékosnál_tárgy
+
+2_tárgy --> 3_tárgy
+3_tárgy --> 2_tárgy
+2_tárgy --> Nincs_a_játékosnál_tárgy
+
+3_tárgy --> 4_tárgy
+4_tárgy --> 3_tárgy
+3_tárgy --> Nincs_a_játékosnál_tárgy
+
+4_tárgy --> 5_tárgy
+5_tárgy --> 4_tárgy
+4_tárgy --> Nincs_a_játékosnál_tárgy
+
+5_tárgy --> Nincs_a_játékosnál_tárgy
+
+1_tárgy --> [*]
+2_tárgy --> [*]
+3_tárgy --> [*]
+4_tárgy --> [*]
+5_tárgy --> [*]
+Nincs_a_játékosnál_tárgy --> [*]
+@enduml
+
