@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-
+title User steps into a gassed room
 autonumber
 
 participant "User" as U
