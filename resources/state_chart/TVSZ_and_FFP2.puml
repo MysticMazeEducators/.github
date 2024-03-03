@@ -2,19 +2,19 @@
 'https://plantuml.com/state-diagram
 scale 350 width
 
-[*] --> Földön
-Földön --> Felvéve
-Felvéve --> Földön
-Felvéve --> Használva
-state Használva {
- [*] --> Még_3_alkalommal_érvényes
- Még_3_alkalommal_érvényes --> Még_2_alkalommal_érvényes
- Még_2_alkalommal_érvényes --> Még_1_alkalommal_érvényes
- Még_1_alkalommal_érvényes --> Eltűnt
+[*] --> On_the_ground
+On_the_ground --> Picked_up : pick_up
+Picked_up --> On_the_ground : drop
+Picked_up --> Being_used : use
+state Being_used {
+ [*] --> Valid_for_3_more_occusions
+ Valid_for_3_more_occusions --> Valid_for_2_more_occusions : protected_you
+ Valid_for_2_more_occusions --> Valid_for_1_more_occusions : protected_you
+ Valid_for_1_more_occusions --> Disappear : protected_you
 }
 
-Használva --> [*]
-Felvéve --> [*]
-Földön --> [*]
+Being_used --> [*] : win/lose
+Picked_up --> [*] : win/lose
+On_the_ground --> [*] : win/lose
 
 @enduml

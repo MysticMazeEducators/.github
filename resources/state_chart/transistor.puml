@@ -3,15 +3,15 @@ scale 350 width
 
 
 @startuml
-[*] --> Földön
-Földön --> Felvéve
-Felvéve --> Földön
-state Földön {
- Bekapcsolva --> Kikapcsolva
- Kikapcsolva --> Bekapcsolva
+[*] --> On_the_ground
+On_the_ground --> Picked_up : pick_up
+Picked_up --> On_the_ground : put_down
+state On_the_ground {
+ Turned_on --> Turned_off : turn_off
+ Turned_off --> Turned_on : turn_on
 }
 
-Felvéve --> [*]
-Földön --> [*]
+Picked_up --> [*] : win/lose
+On_the_ground --> [*] : win/lose
 
 @enduml

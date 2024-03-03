@@ -2,6 +2,7 @@
 'https://plantuml.com/state-diagram
 scale 350 width
 
+
 @startuml
 [*] --> On_the_ground
 On_the_ground --> Picked_up : pick_up

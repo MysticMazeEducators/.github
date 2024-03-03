@@ -4,18 +4,18 @@ scale 350 width
 
 
 @startuml
-[*] --> Sima_szoba
-Sima_szoba --> Gázos_szoba
-Gázos_szoba --> Sima_szoba
-Sima_szoba --> Eltűnős_szoba
-Eltűnős_szoba --> Sima_szoba
-Eltűnős_szoba --> Gázos_és_eltünős_szoba
-Gázos_és_eltünős_szoba --> Eltűnős_szoba
-Gázos_és_eltünős_szoba --> Gázos_szoba
-Gázos_szoba --> Gázos_és_eltünős_szoba
+[*] --> Basic_room
+Basic_room --> Gassed_room : gas_effect_applies
+Gassed_room --> Basic_room : gas_effect_ends
+Basic_room --> Ghost_room : ghost_effect_applies
+Ghost_room --> Basic_room : ghost_effect_ends
+Ghost_room --> Gassed_and_ghost_room : gas_effect_applies
+Gassed_and_ghost_room --> Ghost_room : gas_effect_ends
+Gassed_and_ghost_room --> Gassed_room : ghost_effect_ends
+Gassed_room --> Gassed_and_ghost_room : ghost_effect_applies
 
-Gázos_és_eltünős_szoba --> [*]
-Sima_szoba --> [*]
-Gázos_szoba --> [*]
-Eltűnős_szoba --> [*]
+Gassed_and_ghost_room --> [*] : win/end
+Basic_room --> [*] : win/end
+Gassed_room --> [*] : win/end
+Ghost_room --> [*] : win/end
 @enduml

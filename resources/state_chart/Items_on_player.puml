@@ -1,31 +1,31 @@
 @startuml
 'https://plantuml.com/state-diagram
 
-[*] --> Nincs_a_játékosnál_tárgy
-Nincs_a_játékosnál_tárgy --> 1_tárgy
-1_tárgy --> 2_tárgy
-2_tárgy --> 1_tárgy
-1_tárgy --> Nincs_a_játékosnál_tárgy
+[*] --> No_item_on_a_player
+No_item_on_a_player --> 1_items : pick_up
+1_items --> 2_items : pick_up
+2_items --> 1_items : drop/use
+1_items --> No_item_on_a_player : drop/use
 
-2_tárgy --> 3_tárgy
-3_tárgy --> 2_tárgy
-2_tárgy --> Nincs_a_játékosnál_tárgy
+2_items --> 3_items : pick_up
+3_items --> 2_items : drop/use
+2_items --> No_item_on_a_player : drop_all
 
-3_tárgy --> 4_tárgy
-4_tárgy --> 3_tárgy
-3_tárgy --> Nincs_a_játékosnál_tárgy
+3_items --> 4_items : pick_up
+4_items --> 3_items : drop/use
+3_items --> No_item_on_a_player : drop_all
 
-4_tárgy --> 5_tárgy
-5_tárgy --> 4_tárgy
-4_tárgy --> Nincs_a_játékosnál_tárgy
+4_items --> 5_items : pick_up
+5_items --> 4_items : drop/use
+4_items --> No_item_on_a_player : drop_all
 
-5_tárgy --> Nincs_a_játékosnál_tárgy
+5_items --> No_item_on_a_player : drop_all
 
-1_tárgy --> [*]
-2_tárgy --> [*]
-3_tárgy --> [*]
-4_tárgy --> [*]
-5_tárgy --> [*]
-Nincs_a_játékosnál_tárgy --> [*]
+1_items --> [*] : win/lose
+2_items --> [*] : win/lose
+3_items --> [*] : win/lose
+4_items --> [*] : win/lose
+5_items --> [*] : win/lose
+No_item_on_a_player --> [*] : win/lose
 @enduml
 

@@ -4,11 +4,11 @@ scale 350 width
 
 
 @startuml
-[*] --> Alap_állapot
-Alap_állapot --> Bénult
-Bénult --> Alap_állapot
+[*] --> Basic_state
+Basic_state --> Unconscious : gas_effect
+Unconscious --> Basic_state : gas_effect_ends
 
-Bénult --> [*]
-Alap_állapot --> [*]
+Unconscious --> [*] : win/lose
+Basic_state --> [*] : win/lose
 
 @enduml
