@@ -5,14 +5,12 @@ autonumber
 
 participant "User" as U
 participant "Room" as R
-participant "Teacher" as T
 
 ref over U, R: DRHP
-ref over T, R: DRHP
-
-alt DRHP
-    loop player in Room.playerList
-      ref over R, player: Kill call on present Humans
+alt Room has GassedModifier
+    alt User has no mask
+        R -> U: applyModifier(StunnedModifier)
+        U -> U: dropAllItems()
     end
 end
 @enduml

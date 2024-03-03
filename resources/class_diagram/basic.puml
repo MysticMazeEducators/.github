@@ -79,6 +79,7 @@ abstract class Entity{
 }
 
 abstract class Human{
+  -position: Room
   -inventory: Inventory
   __
   -move(): boolean
@@ -137,7 +138,7 @@ class Inventory{
  -maxSize: int
  -container: List<Item>
  --
- -transferItems(o: itemContainer, ids: List<int>): boolean
+ -transferItems(o: itemContainer, ids: List<Identifier>): boolean
 }
 
 ChargeModifier --|> Modifier

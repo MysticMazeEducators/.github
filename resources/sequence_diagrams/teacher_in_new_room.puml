@@ -18,6 +18,7 @@ alt DRHP
             U -> U: Decrease unkillable modifier
         else not unkillable
             U -> U: applyModifier(Dead)
+            U -> U: dropAllItems()
         end
     end
 end

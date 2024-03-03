@@ -8,8 +8,8 @@ participant "Room" as R
 
 ref over U, R: DRHP
 
-R -> U: sendInventoryList()
-U -> U: pickUpItem(I)
-U -> R: transferItems(this.inventory, [I])
+R -> U: sendInventoryList() -> (room_inv)
+U -> U: selectItem() -> (Identifier)
+U -> U: transferItems(room_inv, Identifier)
 
 @enduml
