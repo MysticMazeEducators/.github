@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "User" as U
+participant "Room" as R
+participant "Teacher" as T
+
+ref over T, R: DRHP
+ref over U, R: DRHP
+
+alt DRHP
+    group kill
+        R -> U: Kill()
+        U -> U: Get unkillable modifiers
+        alt unkillable
+            U -> U: Decrease unkillable modifier
+        else not unkillable
+            U -> U: applyModifier(Dead)
+        end
+    end
+end
+@enduml

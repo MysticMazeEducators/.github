@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title
+    Door-Room Handshake Protocol
+    <DRHP From now on>
+end title
+
+autonumber
+
+participant "Prev Room" as P
+participant "Player" as U
+participant "Door" as D
+participant "Next Room" as N
+
+U -> D: knock()
+D -> N: isFree()
+N -> D: free
+alt free
+    D -> U: true
+    U -> D: open()
+    D -> N: enter(Player)
+    N -> N: addHuman(Player)
+    alt Teacher
+        U <-> N: applyModifier(Player.TeacherPresent)
+        U <-> P: removeModifier(Player.TeacherPresent)
+    end
+    N <-> U: changeRoom(this)
+    U <-> P: leaveRoom(this)
+else not free
+    D -> U: false
+    U -> U: Display 'room full' message
+end
+@enduml

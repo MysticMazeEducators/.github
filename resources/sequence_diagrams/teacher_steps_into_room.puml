@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "User" as U
+participant "Room" as R
+participant "Teacher" as T
+
+ref over U, R: DRHP
+ref over T, R: DRHP
+
+alt DRHP
+    loop player in Room.playerList
+      R <-> player: Kill call on present Humans
+    end
+end
+@enduml

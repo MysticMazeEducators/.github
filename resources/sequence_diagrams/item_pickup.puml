@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "User" as U
+participant "Room" as R
+participant "Item" as I
+
+ref over U, R: DRHP
+
+
+
+@enduml
