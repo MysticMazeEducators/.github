@@ -1,0 +1,100 @@
+@startuml class_diagram
+
+abstract class Entity{
+  -id: int
+  -name: String
+  __
+  -delete(): boolean
+}
+abstract class Human{
+  -inventory: ItemContainer
+  -inUse: ItemContainer
+  -isStunned: boolean
+  __
+  -move(): boolean
+  -useItem(): boolean
+  -pickUpItem(): boolean
+  -dropItem(): boolean
+  -dropAllItems(): boolean
+}
+class Student{
+  -isAlive: boolean
+}
+class Teacher{
+  -kill(): boolean
+}
+abstract class Item{
+  __
+  -use(): boolean
+}
+class TVSZ{
+  -charge: int
+  __
+  -use(): boolean
+}
+class BeerGlass{
+  -charge: int
+  __
+  -use(): boolean
+}
+class Camembert{
+  __
+  -use(): boolean
+}
+class Mask{
+  -charge: int
+  __
+  -use(): boolean
+}
+class Cloth{
+  -charge: int
+  __
+  -use(): boolean
+}
+class Transistor{
+  -isON: boolean
+  __
+  -use(): boolean
+  -switch(): boolean
+}
+class Slipstick{
+  __
+  -use(): boolean
+}
+class Room{
+ -playerList: List<Human>
+ -itemList: List<Item>
+ -doorList: List<Door>
+}
+class Door{
+  -room1: Room
+  -room2: Room
+  -enum doorType
+}
+class ItemContainer{}
+interface ItemUsage{
+  -use(): boolean
+}
+
+
+
+Entity <|-- Human
+Entity <|-- Item
+Entity <|-- Room
+Entity <|-- Door
+Human <|-- Student
+Human <|-- Teacher
+ItemContainer *-- Human
+Item <|-- TVSZ
+Item <|-- BeerGlass
+Item <|-- Camembert
+Item <|-- Mask
+Item <|-- Cloth
+Item <|-- Transistor
+Item <|-- Slipstick
+Item *-- Room
+Door *-- Room
+Human o-- Room
+ItemUsage -- Item
+
+@enduml
