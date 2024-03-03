@@ -1,0 +1,173 @@
+@startuml
+scale 500 width
+left to right direction
+skinparam linetype ortho
+
+class Identifier{
+  -id: int
+  -alreadyUsed: Set<int> {static}
+  --
+}
+
+abstract class Modifier{
+  -id: Identifier
+  -affected: Entity
+  --
+  -Modifier(_affected: Entity)
+  -modify(): boolean {abstract}
+}
+
+'Item modifiers
+class ChargeModifier{
+  -charge: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class OnModifier{
+  -isON: boolean
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class PairedModifier{
+  -paired: Item
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+'Room modifiers
+class GassedModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class GhostDoorsModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+
+'Human modifiers
+class StunnedModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class DeadModifier{
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+abstract class Entity{
+  -id: Identifier
+  -modifiers: List<Modifier>
+  __
+  -delete(): boolean
+  -create(): boolean
+  -removeModifier(): boolean
+}
+
+abstract class Human{
+  -inventory: Inventory
+  __
+  -move(): boolean
+  -useItem(): boolean
+  -pickUpItem(): boolean
+  -dropItem(): boolean
+  -dropAllItems(): boolean
+  -isStunned(): boolean
+}
+class Student{
+  -isAlive(): boolean
+}
+class Teacher{
+  -kill(): boolean
+}
+abstract class Item{
+  -use(): boolean {abstract}
+}
+class TVSZ{
+  __
+  -use(): boolean
+}
+class BeerGlass{
+  __
+  -use(): boolean
+}
+class Camembert{
+  __
+  -use(): boolean
+}
+class Mask{
+  __
+  -use(): boolean
+}
+class Cloth{
+  __
+  -use(): boolean
+}
+class Transistor{
+  __
+  -use(): boolean
+}
+class Slipstick{
+  __
+  -use(): boolean
+}
+class Door{
+  -target: Room
+}
+class Room{
+ -inventory: Inventory
+ -playerList: List<Human>
+ -doorList: List<Door>
+}
+class Inventory{
+ -maxSize: int
+ -container: List<Item>
+ --
+ -transferItems(o: itemContainer, ids: List<int>): boolean
+}
+
+ChargeModifier --|> Modifier
+OnModifier --|> Modifier
+GassedModifier --|> Modifier
+GhostDoorsModifier --|> Modifier
+StunnedModifier --|> Modifier
+DeadModifier --|> Modifier
+PairedModifier --|> Modifier
+
+Modifier --* Identifier
+Entity --* Identifier
+Entity --o Modifier
+Entity <|-- Human
+Entity <|-- Item
+Entity <|-- Room
+Entity <|-- Door
+Human <|-- Student
+Human <|-- Teacher
+Inventory *-- Human
+Inventory *-- Room
+Item <|-- TVSZ
+Item <|-- BeerGlass
+Item <|-- Camembert
+Item <|-- Mask
+Item <|-- Cloth
+Item <|-- Transistor
+Item <|-- Slipstick
+Item o-- Inventory
+Door *-- Room
+Room o-- Door
+Human o-- Room
+@enduml

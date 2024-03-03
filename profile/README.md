@@ -19,3 +19,20 @@ Konzulens: Szabó Bence Sándor
 
 <actual adat>
 ```
+
+# Responsibilities
+## Levente (Aklakina)
+### sstmc-server
+- server-client communication
+- in-memory ORM
+- CI/CD
+- server configuration algorithms and methods
+### sstmc-client
+- server-client communication
+- CI/CD
+- state sync
+- in memory objects
+- user profile data persistence
+### sstmc-common
+- CI/CD
+---
