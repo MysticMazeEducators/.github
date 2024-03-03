@@ -3,9 +3,9 @@
 title Human applying modifier to room with other humans in it
 autonumber
 
-participant "User" as U
+actor "User" as U
 participant "Room" as R
-participant "Teacher" as T
+actor "Teacher" as T
 
 ref over U, R: DRHP
 ref over T, R: DRHP

@@ -3,9 +3,9 @@
 title Special case of Human applying modifier to room
 autonumber
 
-participant "User" as U
+actor "User" as U
 participant "Room" as R
-participant "Teacher" as T
+actor "Teacher" as T
 
 ref over T, R: DRHP
 ref over U, R: DRHP

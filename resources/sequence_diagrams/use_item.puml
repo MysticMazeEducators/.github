@@ -3,7 +3,7 @@
 title Sequence diagram of using an item with an applicable modifier
 autonumber
 
-participant "User" as U
+actor "User" as U
 participant "Room" as R
 participant "Item" as I
 

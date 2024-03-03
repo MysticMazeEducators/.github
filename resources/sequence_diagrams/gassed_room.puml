@@ -3,7 +3,7 @@
 title User steps into a gassed room
 autonumber
 
-participant "User" as U
+actor "User" as U
 participant "Room" as R
 
 ref over U, R: DRHP

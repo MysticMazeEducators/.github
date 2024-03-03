@@ -9,7 +9,7 @@ end title
 autonumber
 
 participant "Prev Room" as P
-participant "Player" as U
+actor "Player" as U
 participant "Door" as D
 participant "Next Room" as N
 
