@@ -1,6 +1,7 @@
 @startuml
-scale 500 width
+
 left to right direction
+skinparam dpi 300
 skinparam linetype ortho
 
 class Identifier{
@@ -83,6 +84,13 @@ class DeadModifier{
   -modify(): boolean
 }
 
+class ProtectedModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
 abstract class Entity{
   -id: Identifier
   -modifiers: List<Modifier>
@@ -111,11 +119,18 @@ class Student{
 class Teacher{
   -kill(): boolean
 }
+
 abstract class Item{
   -applicableModifiers: Set<Class>
   --
   -use(): boolean {abstract}
 }
+
+note right of Item
+    applicableModifiers stores a unique set of class metadata
+    from the modifiers subclasses that later will be used in the modifier application process
+end note
+
 class TVSZ{
   __
   -use(): boolean
@@ -178,7 +193,10 @@ DeadModifier --|> Modifier
 PairedModifier --|> Modifier
 TeacherPresent --|> Modifier
 NeedsPairingModifier --|> Modifier
+ProtectedModifier --|> Modifier
 
+
+PairedModifier --o Transistor
 Modifier --* Identifier
 Entity --* Identifier
 Entity --o Modifier
