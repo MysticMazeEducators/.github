@@ -12,8 +12,10 @@ class Identifier{
 abstract class Modifier{
   -id: Identifier
   -affected: Entity
+  -affectedMethod: Method
+  -target: ModifierTarget
   --
-  -Modifier(_affected: Entity)
+  -Modifier(_affected: Entity, methodName: String)
   -modify(): boolean {abstract}
 }
 
@@ -33,7 +35,7 @@ class OnModifier{
 }
 
 class PairedModifier{
-  -paired: Item
+  -paired: Transistor
   -usableOn: Set<Class> {static}
   --
   -modify(): boolean
@@ -89,6 +91,7 @@ abstract class Entity{
   -create(): boolean
   -removeModifier(mod: Modifier): boolean
   -applyModifier(mod: Modifier): boolean
+  -isFunctionCallable(methodSignature: Method): boolean
 }
 
 abstract class Human{
@@ -100,8 +103,6 @@ abstract class Human{
   -pickUpItem(): boolean
   -dropItem(): boolean
   -dropAllItems(): boolean
-  -selectItem(): boolean
-  -sendInventoryList(): boolean
   -changeRoom(room: Room): boolean
 }
 class Student{
@@ -111,6 +112,8 @@ class Teacher{
   -kill(): boolean
 }
 abstract class Item{
+  -applicableModifiers: Set<Class>
+  --
   -use(): boolean {abstract}
 }
 class TVSZ{
@@ -148,21 +151,22 @@ class Door{
   -knock(): boolean
 }
 class Room{
- -inventory: Inventory
- -playerList: List<Human>
- -doorList: List<Door>
- --
- -isFree(): boolean
- -addHuman(player: Human): boolean
- -enter(player: Human): boolean
- -leaveRoom(player: Human): boolean
+  -inventory: Inventory
+  -playerList: List<Human>
+  -doorList: List<Door>
+  --
+  -isFree(): boolean
+  -addHuman(player: Human): boolean
+  -enter(player: Human): boolean
+  -leaveRoom(player: Human): boolean
 }
 class Inventory{
- -maxSize: int
- -container: List<Item>
- --
- -transferItems(o: itemContainer, ids: List<Identifier>): boolean
- -sendInventoryList(): boolean
+  -maxSize: int
+  -container: List<Item>
+  --
+  -transferItems(o: itemContainer, ids: List<Identifier>): boolean
+  -sendInventoryList(): boolean
+  -selectItem(): Identifier
 }
 
 ChargeModifier --|> Modifier
