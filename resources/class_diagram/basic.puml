@@ -1,7 +1,7 @@
 @startuml
 
 left to right direction
-skinparam dpi 300
+skinparam dpi 700
 skinparam linetype ortho
 
 class Identifier{
@@ -16,7 +16,7 @@ abstract class Modifier{
   -affectedMethod: Method
   -target: ModifierTarget
   --
-  -Modifier(_affected: Entity, methodName: String)
+  -Modifier(_affected: Entity, methodSignature: Method)
   -modify(): boolean {abstract}
 }
 
