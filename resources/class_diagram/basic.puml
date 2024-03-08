@@ -1,6 +1,7 @@
 @startuml
-scale 500 width
+
 left to right direction
+skinparam dpi 700
 skinparam linetype ortho
 
 class Identifier{
@@ -12,6 +13,8 @@ class Identifier{
 abstract class Action{
   -id: Identifier
   -affected: Entity
+  -affectedMethod: Method
+  -target: ModifierTarget
   --
   -Action(_affected: Entity)
   -modify(): boolean {abstract}
@@ -33,7 +36,13 @@ class OnModifier{
 }
 
 class PairedModifier{
-  -paired: Item
+  -paired: Transistor
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class NeedsPairingModifier{
   -usableOn: Set<Class> {static}
   --
   -modify(): boolean
@@ -49,6 +58,12 @@ class GassedModifier{
 
 class GhostDoorsModifier{
   -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class TeacherPresent{
   -usableOn: Set<Class> {static}
   --
   -modify(): boolean
@@ -75,10 +90,13 @@ class Entity{
   __
   -delete(): boolean
   -create(): boolean
-  -removeModifier(): boolean
+  -removeModifier(mod: Modifier): boolean
+  -applyModifier(mod: Modifier): boolean
+  -isFunctionCallable(methodSignature: Method): boolean
 }
 
 abstract class Human{
+  -position: Room
   -inventory: Inventory
   __
   -move(): boolean
@@ -86,7 +104,7 @@ abstract class Human{
   -pickUpItem(): boolean
   -dropItem(): boolean
   -dropAllItems(): boolean
-  -isStunned(): boolean
+  -changeRoom(room: Room): boolean
 }
 class Student{
   -isAlive(): boolean
@@ -94,6 +112,7 @@ class Student{
 class Teacher{
   -kill(): boolean
 }
+
 abstract class Item{
   -action: Action
   __
@@ -101,17 +120,27 @@ abstract class Item{
 }
 class Door{
   -target: Room
+  --
+  -open(): boolean
+  -knock(): boolean
 }
 class Room{
- -inventory: Inventory
- -playerList: List<Human>
- -doorList: List<Door>
+  -inventory: Inventory
+  -playerList: List<Human>
+  -doorList: List<Door>
+  --
+  -isFree(): boolean
+  -addHuman(player: Human): boolean
+  -enter(player: Human): boolean
+  -leaveRoom(player: Human): boolean
 }
 class Inventory{
- -maxSize: int
- -container: List<Item>
- --
- -transferItems(o: itemContainer, ids: List<int>): boolean
+  -maxSize: int
+  -container: List<Item>
+  --
+  -transferItems(o: itemContainer, ids: List<Identifier>): boolean
+  -sendInventoryList(): boolean
+  -selectItem(): Identifier
 }
 class Timer{
   -tick()

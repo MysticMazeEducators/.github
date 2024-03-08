@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title Human applying modifier to room with other humans in it
+autonumber
+
+actor "User" as U
+participant "Room" as R
+actor "Teacher" as T
+
+ref over U, R: DRHP
+ref over T, R: DRHP
+
+alt DRHP
+    loop player in Room.playerList
+      ref over R, player: Kill call on present Humans
+    end
+end
+@enduml
