@@ -10,13 +10,13 @@ class Identifier{
   --
 }
 
-abstract class Action{
+abstract class Modifier{
   -id: Identifier
   -affected: Entity
   -affectedMethod: Method
   -target: ModifierTarget
   --
-  -Action(_affected: Entity)
+  -Modifier(_affected: Entity)
   -modify(): boolean {abstract}
 }
 
@@ -84,9 +84,9 @@ class DeadModifier{
   -modify(): boolean
 }
 
-class Entity{
+abstract class Entity{
   -id: Identifier
-  -modifiers: List<Action>
+  -modifiers: List<Modifier>
   __
   -delete(): boolean
   -create(): boolean
@@ -114,9 +114,35 @@ class Teacher{
 }
 
 abstract class Item{
-  -action: Action
-  __
   -use(): boolean {abstract}
+}
+class TVSZ{
+  __
+  -use(): boolean
+}
+class BeerGlass{
+  __
+  -use(): boolean
+}
+class Camembert{
+  __
+  -use(): boolean
+}
+class Mask{
+  __
+  -use(): boolean
+}
+class Cloth{
+  __
+  -use(): boolean
+}
+class Transistor{
+  __
+  -use(): boolean
+}
+class Slipstick{
+  __
+  -use(): boolean
 }
 class Door{
   -target: Room
@@ -142,21 +168,18 @@ class Inventory{
   -sendInventoryList(): boolean
   -selectItem(): Identifier
 }
-class Timer{
-  -tick()
-}
 
-ChargeModifier --|> Action
-OnModifier --|> Action
-GassedModifier --|> Action
-GhostDoorsModifier --|> Action
-StunnedModifier --|> Action
-DeadModifier --|> Action
-PairedModifier --|> Action
+ChargeModifier --|> Modifier
+OnModifier --|> Modifier
+GassedModifier --|> Modifier
+GhostDoorsModifier --|> Modifier
+StunnedModifier --|> Modifier
+DeadModifier --|> Modifier
+PairedModifier --|> Modifier
 
-Action --* Identifier
+Modifier --* Identifier
 Entity --* Identifier
-Entity --o Action
+Entity --o Modifier
 Entity <|-- Human
 Entity <|-- Item
 Entity <|-- Room
