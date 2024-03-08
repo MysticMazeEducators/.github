@@ -178,6 +178,7 @@ class common::Entity{
 abstract class common::Human{
   -position: Room
   -inventory: Inventory
+  -stunDuration: int
   -stunAction: List<StunAction>
   -killActions: List<KillAction>
   __
