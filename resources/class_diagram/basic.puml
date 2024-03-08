@@ -1,179 +1,271 @@
 @startuml
 
 left to right direction
-skinparam dpi 700
-skinparam linetype ortho
+skinparam dpi 600
+skinparam linetype poly
+set namespaceSeparator ::
 
-class Identifier{
+class common::Identifier{
   -id: int
   -alreadyUsed: Set<int> {static}
   --
 }
 
-abstract class Action{
-  -id: Identifier
-  -affected: Entity
-  -affectedMethod: Method
-  -target: ModifierTarget
-  --
-  -Action(_affected: Entity)
-  -modify(): boolean {abstract}
+class common::Context {
+  -position: Room
+  -parent: Entity
+  -target: Entity
 }
 
-'Item modifiers
-class ChargeModifier{
-  -charge: int
-  -usableOn: Set<Class> {static}
+interface actions::Action{
   --
-  -modify(): boolean
+  +execute(context: Context): boolean {abstract}
 }
 
-class OnModifier{
-  -isON: boolean
-  -usableOn: Set<Class> {static}
+interface actions::item::ItemAction
+interface actions::room::RoomAction
+interface actions::human::HumanAction
+
+Action <|-- ItemAction
+Action <|-- RoomAction
+Action <|-- HumanAction
+
+interface actions::item::UseAction
+interface actions::item::PickupAction
+interface actions::item::PutdownAction
+
+ItemAction <|-- UseAction
+ItemAction <|-- PickupAction
+ItemAction <|-- PutdownAction
+
+interface actions::room::EnterAction
+interface actions::room::GetDoorsAction
+
+RoomAction <|-- EnterAction
+RoomAction <|-- GetDoorsAction
+
+interface actions::human::KillAction
+interface actions::human::StunAction
+
+HumanAction <|-- KillAction
+HumanAction <|-- StunAction
+
+'Item actions
+class actions::item::TransistorAction {
+  -pair: Item
+  -on: boolean
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-class PairedModifier{
-  -paired: Transistor
-  -usableOn: Set<Class> {static}
+class actions::item::CamambertAction {
+  -duration: int = 3
+  -on: boolean
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-class NeedsPairingModifier{
-  -usableOn: Set<Class> {static}
+class actions::item::TVSZAction {
+  -duration: int = 3
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
+
+class actions::item::BeerGlassAction {
+  -duration: int = 3
+  -on: boolean
+  --
+  +execute(context: Context): boolean
+}
+
+class actions::item::MaskAction {
+  -duration: int = 3
+  --
+  +execute(context: Context): boolean
+}
+
+class actions::item::ClothAction {
+  -duration: int = 2
+  -on: boolean
+  --
+  +execute(context: Context): boolean
+}
+
+class actions::item::SlipstickAction {
+  --
+  +execute(context: Context): boolean
+}
+
+UseAction <|-- TransistorAction
+PutdownAction <|-- TransistorAction
+PutdownAction <|-- CamambertAction
+PickupAction <|-- TVSZAction
+UseAction <|-- BeerGlassAction
+UseAction <|-- MaskAction
+PutdownAction <|-- ClothAction
+PickupAction <|-- SlipstickAction
+
+EnterAction <|-- ClothAction
+EnterAction <|-- CamambertAction
+
+KillAction <|-- TVSZAction
+KillAction <|-- BeerGlassAction
+StunAction <|-- MaskAction
 
 'Room modifiers
-class GassedModifier{
+class actions::room::GhostDoorsAction{
   -duration: int
-  -usableOn: Set<Class> {static}
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-class GhostDoorsModifier{
-  -duration: int
-  -usableOn: Set<Class> {static}
+class actions::room::TeacherPresentAction{
+  teacherId: Identifier
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-class TeacherPresent{
-  -usableOn: Set<Class> {static}
+GetDoorsAction <|-- GhostDoorsAction
+EnterAction <|-- TeacherPresentAction
+
+'Default actions
+
+class actions::human::DKillAction{
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-
-'Human modifiers
-class StunnedModifier{
-  -duration: int
-  -usableOn: Set<Class> {static}
+class actions::human::DStunAction{
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-class DeadModifier{
-  -usableOn: Set<Class> {static}
+KillAction <|-- DKillAction
+StunAction <|-- DStunAction
+
+class actions::room::DEnterAction{
   --
-  -modify(): boolean
+  +execute(context: Context): boolean
 }
 
-class Entity{
+class actions::room::DGetDoorsAction{
+  --
+  +execute(context: Context): boolean
+}
+
+GetDoorsAction <|-- DGetDoorsAction
+EnterAction <|-- DEnterAction
+
+class actions::item::DPickupAction{
+  --
+  +execute(context: Context): boolean
+}
+
+class actions::item::DPutdownAction{
+  --
+  +execute(context: Context): boolean
+}
+
+PickupAction <|-- DPickupAction
+PutdownAction <|-- DPutdownAction
+
+class common::Entity{
   -id: Identifier
-  -modifiers: List<Action>
   __
-  -delete(): boolean
-  -create(): boolean
-  -removeModifier(mod: Modifier): boolean
-  -applyModifier(mod: Modifier): boolean
-  -isFunctionCallable(methodSignature: Method): boolean
+  +processTurn(): boolean {abstract}
 }
 
-abstract class Human{
+abstract class common::Human{
   -position: Room
   -inventory: Inventory
+  -stunAction: List<StunAction>
+  -killActions: List<KillAction>
   __
-  -move(): boolean
-  -useItem(): boolean
-  -pickUpItem(): boolean
-  -dropItem(): boolean
-  -dropAllItems(): boolean
-  -changeRoom(room: Room): boolean
-}
-class Student{
-  -isAlive(): boolean
-}
-class Teacher{
-  -kill(): boolean
+  +move(): boolean
+  +useItem(): boolean
+  +pickUpItem(): boolean
+  +dropItem(): boolean
+  +dropAllItems(): boolean
+  +changeRoom(room: Room): boolean
+  +stun(): boolean
+  +kill(): boolean
 }
 
-abstract class Item{
-  -action: Action
-  __
-  -use(): boolean {abstract}
+class common::human::Student{
+  +processTurn(): boolean
+  +processUserInput(): boolean
 }
-class Door{
+
+class common::human::Teacher{
+  +processTurn(): boolean
+}
+
+abstract class common::Item{
+  -useAction: UseAction
+  -pickUpAction: PickupAction
+  -putDownAction: PutdownAction
+  __
+  +pickUp(): boolean
+  +putDown(): boolean
+  +use(): boolean
+  +processTurn(): boolean
+}
+
+class common::Door{
   -target: Room
   --
-  -open(): boolean
-  -knock(): boolean
+  -open(context: Context): boolean
 }
-class Room{
+
+class common::Room{
   -inventory: Inventory
   -playerList: List<Human>
   -doorList: List<Door>
+  -getDoorsAction: GetDoorsAction = DGetDoorsAction
+  -enterActions: List<EnterAction>
   --
-  -isFree(): boolean
-  -addHuman(player: Human): boolean
-  -enter(player: Human): boolean
-  -leaveRoom(player: Human): boolean
+  +getDoors(): List<Door>
+  +enter(context: Context): boolean
+  +leave(context: Context): boolean
 }
-class Inventory{
+class common::Inventory{
   -maxSize: int
   -container: List<Item>
   --
-  -transferItems(o: itemContainer, ids: List<Identifier>): boolean
-  -sendInventoryList(): boolean
-  -selectItem(): Identifier
+  +transferItems(context: Context, ids: List<Identifier>): boolean
+  +sendInventoryList(): boolean
+  +selectItem(): Identifier
 }
-class Timer{
-  -tick()
+class common::Timer{
+  +tick()
 }
 
-ChargeModifier --|> Action
-OnModifier --|> Action
-GassedModifier --|> Action
-GhostDoorsModifier --|> Action
-StunnedModifier --|> Action
-DeadModifier --|> Action
-PairedModifier --|> Action
-
-Action --* Identifier
-Entity --* Identifier
-Entity --o Action
+Entity "1" *-- "1" Identifier
 Entity <|-- Human
 Entity <|-- Item
 Entity <|-- Room
 Entity <|-- Door
 Human <|-- Student
 Human <|-- Teacher
-Inventory *-- Human
-Inventory *-- Room
-Item <|-- TVSZ
-Item <|-- BeerGlass
-Item <|-- Camembert
-Item <|-- Mask
-Item <|-- Cloth
-Item <|-- Transistor
-Item <|-- Slipstick
-Item o-- Inventory
-Door *-- Room
-Room o-- Door
-Human o-- Room
+Inventory "1" --* "1" Human
+Inventory "1" --* "1" Room
+Item "0..n" --* "1" Inventory
+Door "1" o-- "1" Room
+Room "1" *-- "1..*" Door
+Human "1" --o "1" Room
+Context "1" --o "1" Room
+Context "1" --o "2" Entity
+
+
+'Connect the actions
+Item "1" *-- "1" UseAction
+Item "1" *-- "1" PickupAction
+Item "1" *-- "1" PutdownAction
+
+Room "1" *-- "1..*" EnterAction
+Room "1" *-- "1" GetDoorsAction
+
+Human "1" *-- "1..*" KillAction
+Human "1" *-- "1..*" StunAction
+
 @enduml
