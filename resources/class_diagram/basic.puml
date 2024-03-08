@@ -10,13 +10,13 @@ class Identifier{
   --
 }
 
-abstract class Modifier{
+abstract class Action{
   -id: Identifier
   -affected: Entity
   -affectedMethod: Method
   -target: ModifierTarget
   --
-  -Modifier(_affected: Entity, methodSignature: Method)
+  -Action(_affected: Entity)
   -modify(): boolean {abstract}
 }
 
@@ -84,16 +84,9 @@ class DeadModifier{
   -modify(): boolean
 }
 
-class ProtectedModifier{
-  -duration: int
-  -usableOn: Set<Class> {static}
-  --
-  -modify(): boolean
-}
-
-abstract class Entity{
+class Entity{
   -id: Identifier
-  -modifiers: List<Modifier>
+  -modifiers: List<Action>
   __
   -delete(): boolean
   -create(): boolean
@@ -121,43 +114,9 @@ class Teacher{
 }
 
 abstract class Item{
-  -applicableModifiers: Set<Class>
-  --
+  -action: Action
+  __
   -use(): boolean {abstract}
-}
-
-note right of Item
-    applicableModifiers stores a unique set of class metadata
-    from the modifiers subclasses that later will be used in the modifier application process
-end note
-
-class TVSZ{
-  __
-  -use(): boolean
-}
-class BeerGlass{
-  __
-  -use(): boolean
-}
-class Camembert{
-  __
-  -use(): boolean
-}
-class Mask{
-  __
-  -use(): boolean
-}
-class Cloth{
-  __
-  -use(): boolean
-}
-class Transistor{
-  __
-  -use(): boolean
-}
-class Slipstick{
-  __
-  -use(): boolean
 }
 class Door{
   -target: Room
@@ -183,23 +142,21 @@ class Inventory{
   -sendInventoryList(): boolean
   -selectItem(): Identifier
 }
+class Timer{
+  -tick()
+}
 
-ChargeModifier --|> Modifier
-OnModifier --|> Modifier
-GassedModifier --|> Modifier
-GhostDoorsModifier --|> Modifier
-StunnedModifier --|> Modifier
-DeadModifier --|> Modifier
-PairedModifier --|> Modifier
-TeacherPresent --|> Modifier
-NeedsPairingModifier --|> Modifier
-ProtectedModifier --|> Modifier
+ChargeModifier --|> Action
+OnModifier --|> Action
+GassedModifier --|> Action
+GhostDoorsModifier --|> Action
+StunnedModifier --|> Action
+DeadModifier --|> Action
+PairedModifier --|> Action
 
-
-PairedModifier --o Transistor
-Modifier --* Identifier
+Action --* Identifier
 Entity --* Identifier
-Entity --o Modifier
+Entity --o Action
 Entity <|-- Human
 Entity <|-- Item
 Entity <|-- Room
