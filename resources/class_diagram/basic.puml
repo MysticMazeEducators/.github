@@ -1,0 +1,202 @@
+@startuml
+
+left to right direction
+skinparam dpi 700
+skinparam linetype ortho
+
+class Identifier{
+  -id: int
+  -alreadyUsed: Set<int> {static}
+  --
+}
+
+abstract class Modifier{
+  -id: Identifier
+  -affected: Entity
+  -affectedMethod: Method
+  -target: ModifierTarget
+  --
+  -Modifier(_affected: Entity)
+  -modify(): boolean {abstract}
+}
+
+'Item modifiers
+class ChargeModifier{
+  -charge: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class OnModifier{
+  -isON: boolean
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class PairedModifier{
+  -paired: Transistor
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class NeedsPairingModifier{
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+'Room modifiers
+class GassedModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class GhostDoorsModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class TeacherPresent{
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+
+'Human modifiers
+class StunnedModifier{
+  -duration: int
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+class DeadModifier{
+  -usableOn: Set<Class> {static}
+  --
+  -modify(): boolean
+}
+
+abstract class Entity{
+  -id: Identifier
+  -modifiers: List<Modifier>
+  __
+  -delete(): boolean
+  -create(): boolean
+  -removeModifier(mod: Modifier): boolean
+  -applyModifier(mod: Modifier): boolean
+  -isFunctionCallable(methodSignature: Method): boolean
+}
+
+abstract class Human{
+  -position: Room
+  -inventory: Inventory
+  __
+  -move(): boolean
+  -useItem(): boolean
+  -pickUpItem(): boolean
+  -dropItem(): boolean
+  -dropAllItems(): boolean
+  -changeRoom(room: Room): boolean
+}
+class Student{
+  -isAlive(): boolean
+}
+class Teacher{
+  -kill(): boolean
+}
+
+abstract class Item{
+  -use(): boolean {abstract}
+}
+class TVSZ{
+  __
+  -use(): boolean
+}
+class BeerGlass{
+  __
+  -use(): boolean
+}
+class Camembert{
+  __
+  -use(): boolean
+}
+class Mask{
+  __
+  -use(): boolean
+}
+class Cloth{
+  __
+  -use(): boolean
+}
+class Transistor{
+  __
+  -use(): boolean
+}
+class Slipstick{
+  __
+  -use(): boolean
+}
+class Door{
+  -target: Room
+  --
+  -open(): boolean
+  -knock(): boolean
+}
+class Room{
+  -inventory: Inventory
+  -playerList: List<Human>
+  -doorList: List<Door>
+  --
+  -isFree(): boolean
+  -addHuman(player: Human): boolean
+  -enter(player: Human): boolean
+  -leaveRoom(player: Human): boolean
+}
+class Inventory{
+  -maxSize: int
+  -container: List<Item>
+  --
+  -transferItems(o: itemContainer, ids: List<Identifier>): boolean
+  -sendInventoryList(): boolean
+  -selectItem(): Identifier
+}
+
+ChargeModifier --|> Modifier
+OnModifier --|> Modifier
+GassedModifier --|> Modifier
+GhostDoorsModifier --|> Modifier
+StunnedModifier --|> Modifier
+DeadModifier --|> Modifier
+PairedModifier --|> Modifier
+
+Modifier --* Identifier
+Entity --* Identifier
+Entity --o Modifier
+Entity <|-- Human
+Entity <|-- Item
+Entity <|-- Room
+Entity <|-- Door
+Human <|-- Student
+Human <|-- Teacher
+Inventory *-- Human
+Inventory *-- Room
+Item <|-- TVSZ
+Item <|-- BeerGlass
+Item <|-- Camembert
+Item <|-- Mask
+Item <|-- Cloth
+Item <|-- Transistor
+Item <|-- Slipstick
+Item o-- Inventory
+Door *-- Room
+Room o-- Door
+Human o-- Room
+@enduml

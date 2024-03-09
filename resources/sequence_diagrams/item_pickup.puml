@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title User picks up item from room
+autonumber
+
+actor "User" as U
+participant "Room" as R
+
+ref over U, R: DRHP
+
+R -> U: sendInventoryList()
+U -> U: selectItem() -> Identifier
+U -> R: transferItems(this.inventory, [Identifier])
+
+@enduml
