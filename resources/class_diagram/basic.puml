@@ -1,7 +1,7 @@
 @startuml
 
 left to right direction
-skinparam dpi 600
+skinparam dpi 700
 skinparam linetype ortho
 page 2x2
 skinparam pageMargin 10
@@ -20,25 +20,140 @@ class common::Context<p extends Entity, t extends Entity>{
   -target: t
 }
 
+interface common::Timed{
+  +processTick(): boolean
+}
+
+class common::Entity{
+  -id: Identifier
+}
+
+class common::Room{
+  -inventory: Inventory
+  -playerList: List of Human
+  -doorList: List of Door
+  -getDoorsAction: GetDoorsAction = DGetDoorsAction
+  -enterActions: ActionQueue<EnterAction>
+  --
+  +getDoors(): List of Door
+  +enter(context: Context): boolean
+  +leave(context: Context): boolean
+}
+
+Timed <|-- Room
+
+class common::Map{
+  -roomList: List of Room
+  --
+  +getRoom(id: int): Room
+  +getRoomList(): List of Room
+}
+
+Timed <|-- Map
+Entity <|-- Map
+Room "1..*" --* "1" Map
+
+class common::Minimap{
+  -roomList: List of Room
+  --
+  +getRoomList(): List of Room
+  +refreshRoomState(id: int): boolean
+}
+
+Entity <|-- Minimap
+Minimap - Map
+
+abstract class common::Human{
+  -position: Room
+  -inventory: Inventory
+  -stunned: boolean
+  -stunDuration: int
+  -stunAction: ActionQueue<StunAction>
+  -killActions: ActionQueue<KillAction>
+  -minimap: Minimap
+  __
+  +move(): boolean
+  +useItem(): boolean
+  +pickUpItem(): boolean
+  +dropItem(): boolean
+  +dropAllItems(): boolean
+  +changeRoom(room: Room): boolean
+  +stun(): boolean
+  +kill(): boolean
+}
+
+Timed <|-- Human
+Human "1" *-- "1" Minimap
+
+class common::human::Student{
+  +processTick(): boolean
+  +processUserInput(): boolean
+}
+
+class common::human::Teacher{
+  +processTick(): boolean
+}
+
+Teacher - Map
+
+abstract class common::Item<u extends UseAction, pu extends PickupAction, pd extends PutdownAction, tp extends TickProcessor>{
+  -useAction: u
+  -pickUpAction: pu
+  -putDownAction: pd
+  -tickProcessor: tp
+  __
+  +pickUp(context: Context<Human, Item>): boolean
+  +putDown(context: Context<Human, Item>): boolean
+  +use(context: Context<Human, Item>): boolean
+  +processTick(): boolean
+}
+
+Timed <|-- Item
+
+class common::Door{
+  -target: Room
+  --
+  +open(context: Context): boolean
+}
+
+class common::Inventory{
+  -maxSize: int
+  -container: List of Item
+  --
+  +transferItems(context: Context, ids: List of Identifier): boolean
+  +sendInventoryList(): List of Item
+  +selectItem(): Identifier
+}
+
+class common::Timer{
+  +tick()
+}
+
 interface actions::Action{
   --
   +execute(context: Context): boolean {abstract}
 }
 
 class actions::ActionQueue<e extends OrderedAction>{
-  -queue: List<e>
+  -queue: queue of e
   --
   +addAction(action: Action): boolean
   +execute(context: Context): boolean
   +executeAll(context: Context): boolean
   +removeFirst(): boolean
+  +remove(action: Action): boolean
 }
+
+Room "1" *-- "1" ActionQueue
+Human "1" *-- "2" ActionQueue
 
 class actions::OrderedAction{
   -priority: int
   --
   +CompareTo(other: OrderedAction): int
 }
+
+ActionQueue "1" *-- "1..*" OrderedAction
 
 Action <|-- OrderedAction
 
@@ -53,21 +168,22 @@ Action <|-- HumanAction
 interface actions::item::UseAction
 interface actions::item::PickupAction
 interface actions::item::PutdownAction
+interface actions::item::TickProcessor
 
 ItemAction <|-- UseAction
 ItemAction <|-- PickupAction
 ItemAction <|-- PutdownAction
+ItemAction <|-- TickProcessor
 
-interface actions::room::EnterAction
+abstract class actions::room::EnterAction
 interface actions::room::GetDoorsAction
 
 RoomAction <|-- EnterAction
 OrderedAction <|-- EnterAction
 RoomAction <|-- GetDoorsAction
-OrderedAction <|-- GetDoorsAction
 
-interface actions::human::KillAction
-interface actions::human::StunAction
+abstract class actions::human::KillAction
+abstract class actions::human::StunAction
 
 HumanAction <|-- KillAction
 OrderedAction <|-- KillAction
@@ -104,6 +220,7 @@ class actions::item::BeerGlassAction {
 
 class actions::item::MaskAction {
   -duration: int = 3
+  -on: boolean
   --
   +execute(context: Context): boolean
 }
@@ -119,6 +236,20 @@ class actions::item::SlipstickAction {
   --
   +execute(context: Context): boolean
 }
+
+class actions::item::decreaseDurationAction {
+  __
+  +execute(context: Context): boolean
+}
+
+TickProcessor <|-- decreaseDurationAction
+
+class actions::item::dTickProcessor {
+  __
+  +execute(context: Context): boolean
+}
+
+TickProcessor <|-- dTickProcessor
 
 UseAction <|-- TransistorAction
 PutdownAction <|-- TransistorAction
@@ -144,13 +275,14 @@ class actions::room::GhostDoorsAction{
 }
 
 class actions::room::TeacherPresentAction{
-  teacherId: Identifier
+  teacher: Teacher
   --
   +execute(context: Context): boolean
 }
 
 GetDoorsAction <|-- GhostDoorsAction
 EnterAction <|-- TeacherPresentAction
+Teacher "1" --o "1" TeacherPresentAction
 
 'Default actions
 
@@ -193,78 +325,6 @@ class actions::item::DPutdownAction{
 PickupAction <|-- DPickupAction
 PutdownAction <|-- DPutdownAction
 
-class common::Entity{
-  -id: Identifier
-  __
-  +processTurn(): boolean {abstract}
-}
-
-abstract class common::Human{
-  -position: Room
-  -inventory: Inventory
-  -stunDuration: int
-  -stunAction: List<StunAction>
-  -killActions: List<KillAction>
-  __
-  +move(): boolean
-  +useItem(): boolean
-  +pickUpItem(): boolean
-  +dropItem(): boolean
-  +dropAllItems(): boolean
-  +changeRoom(room: Room): boolean
-  +stun(): boolean
-  +kill(): boolean
-}
-
-class common::human::Student{
-  +processTurn(): boolean
-  +processUserInput(): boolean
-}
-
-class common::human::Teacher{
-  +processTurn(): boolean
-}
-
-abstract class common::Item{
-  -useAction: UseAction
-  -pickUpAction: PickupAction
-  -putDownAction: PutdownAction
-  __
-  +pickUp(): boolean
-  +putDown(): boolean
-  +use(): boolean
-  +processTurn(): boolean
-}
-
-class common::Door{
-  -target: Room
-  --
-  -open(context: Context): boolean
-}
-
-class common::Room{
-  -inventory: Inventory
-  -playerList: List<Human>
-  -doorList: List<Door>
-  -getDoorsAction: GetDoorsAction = DGetDoorsAction
-  -enterActions: List<EnterAction>
-  --
-  +getDoors(): List<Door>
-  +enter(context: Context): boolean
-  +leave(context: Context): boolean
-}
-class common::Inventory{
-  -maxSize: int
-  -container: List<Item>
-  --
-  +transferItems(context: Context, ids: List<Identifier>): boolean
-  +sendInventoryList(): boolean
-  +selectItem(): Identifier
-}
-class common::Timer{
-  +tick()
-}
-
 Entity "1" *-- "1" Identifier
 Entity <|-- Human
 Entity <|-- Item
@@ -286,11 +346,14 @@ Context "1" --o "2" Entity
 Item "1" *-- "1" UseAction
 Item "1" *-- "1" PickupAction
 Item "1" *-- "1" PutdownAction
+Item "1" *-- "1" TickProcessor
 
 Room "1" *-- "1..*" EnterAction: > child
 Room "1" *-- "1" GetDoorsAction: > child
 
 Human "1" *-- "1..*" KillAction: > child
 Human "1" *-- "1..*" StunAction: > child
+
+Timed - Timer
 
 @enduml
