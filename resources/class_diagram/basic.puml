@@ -24,7 +24,7 @@ interface common::Timed{
   +processTick(): boolean
 }
 
-class common::Entity{
+abstract class common::Entity{
   -id: Identifier
 }
 
@@ -244,12 +244,12 @@ class actions::item::decreaseDurationAction {
 
 TickProcessor <|-- decreaseDurationAction
 
-class actions::item::dTickProcessor {
+class actions::item::dTickProcessorAction {
   __
   +execute(context: Context): boolean
 }
 
-TickProcessor <|-- dTickProcessor
+TickProcessor <|-- dTickProcessorAction
 
 UseAction <|-- TransistorAction
 PutdownAction <|-- TransistorAction
