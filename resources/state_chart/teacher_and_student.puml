@@ -8,7 +8,5 @@ scale 350 width
 Basic_state --> Unconscious : gas_effect
 Unconscious --> Basic_state : gas_effect_ends
 
-Unconscious --> [*] : win/lose
-Basic_state --> [*] : win/lose
 
 @enduml

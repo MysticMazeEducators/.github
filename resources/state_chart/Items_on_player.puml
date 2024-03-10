@@ -21,11 +21,5 @@ No_item_on_a_player --> 1_items : pick_up
 
 5_items --> No_item_on_a_player : drop_all
 
-1_items --> [*] : win/lose
-2_items --> [*] : win/lose
-3_items --> [*] : win/lose
-4_items --> [*] : win/lose
-5_items --> [*] : win/lose
-No_item_on_a_player --> [*] : win/lose
 @enduml
 

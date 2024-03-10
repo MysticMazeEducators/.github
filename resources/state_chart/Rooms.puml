@@ -14,8 +14,4 @@ Gassed_and_ghost_room --> Ghost_room : gas_effect_ends
 Gassed_and_ghost_room --> Gassed_room : ghost_effect_ends
 Gassed_room --> Gassed_and_ghost_room : ghost_effect_applies
 
-Gassed_and_ghost_room --> [*] : win/end
-Basic_room --> [*] : win/end
-Gassed_room --> [*] : win/end
-Ghost_room --> [*] : win/end
 @enduml

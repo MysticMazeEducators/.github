@@ -7,6 +7,5 @@ scale 350 width
 [*] --> Ground
 Ground --> Picked_up : pick_up
 
-Picked_up --> [*] : win
 
 @enduml

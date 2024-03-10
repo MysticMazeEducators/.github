@@ -8,14 +8,8 @@ On_the_ground --> Picked_up : pick_up
 Picked_up --> On_the_ground : drop/use
 Picked_up --> Used : use
 state Used {
- [*] --> Valid_for_3_more_rounds
- Valid_for_3_more_rounds --> Valid_for_2_more_rounds : round_passes
- Valid_for_2_more_rounds --> Valid_for_1_more_round : round_passes
- Valid_for_1_more_round --> Effect_not_active : round_passes
-}
+ [*] --> Valid_for_X_more_rounds
+ Valid_for_X_more_rounds --> Effect_not_active : round_passes [X == 0]
 
-Used --> [*] : win/lose
-Picked_up --> [*] : win/lose
-On_the_ground --> [*] : win/lose
 
 @enduml

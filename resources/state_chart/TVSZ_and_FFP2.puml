@@ -7,14 +7,9 @@ On_the_ground --> Picked_up : pick_up
 Picked_up --> On_the_ground : drop
 Picked_up --> Being_used : use
 state Being_used {
- [*] --> Valid_for_3_more_occusions
- Valid_for_3_more_occusions --> Valid_for_2_more_occusions : protected_you
- Valid_for_2_more_occusions --> Valid_for_1_more_occusions : protected_you
- Valid_for_1_more_occusions --> Disappear : protected_you
+ [*] --> Valid_for_X_more_occasions
+ Valid_for_X_more_occasions  --> Disappear : protected_you [X == 0]
 }
 
-Being_used --> [*] : win/lose
-Picked_up --> [*] : win/lose
-On_the_ground --> [*] : win/lose
 
 @enduml
