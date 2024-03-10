@@ -2,7 +2,10 @@
 
 left to right direction
 skinparam dpi 600
-skinparam linetype poly
+skinparam linetype ortho
+page 2x2
+skinparam pageMargin 10
+
 set namespaceSeparator ::
 
 class common::Identifier{
@@ -11,16 +14,33 @@ class common::Identifier{
   --
 }
 
-class common::Context {
+class common::Context<p extends Entity, t extends Entity>{
   -position: Room
-  -parent: Entity
-  -target: Entity
+  -parent: p
+  -target: t
 }
 
 interface actions::Action{
   --
   +execute(context: Context): boolean {abstract}
 }
+
+class actions::ActionQueue<e extends OrderedAction>{
+  -queue: List<e>
+  --
+  +addAction(action: Action): boolean
+  +execute(context: Context): boolean
+  +executeAll(context: Context): boolean
+  +removeFirst(): boolean
+}
+
+class actions::OrderedAction{
+  -priority: int
+  --
+  +CompareTo(other: OrderedAction): int
+}
+
+Action <|-- OrderedAction
 
 interface actions::item::ItemAction
 interface actions::room::RoomAction
@@ -42,13 +62,17 @@ interface actions::room::EnterAction
 interface actions::room::GetDoorsAction
 
 RoomAction <|-- EnterAction
+OrderedAction <|-- EnterAction
 RoomAction <|-- GetDoorsAction
+OrderedAction <|-- GetDoorsAction
 
 interface actions::human::KillAction
 interface actions::human::StunAction
 
 HumanAction <|-- KillAction
+OrderedAction <|-- KillAction
 HumanAction <|-- StunAction
+OrderedAction <|-- StunAction
 
 'Item actions
 class actions::item::TransistorAction {
@@ -263,10 +287,10 @@ Item "1" *-- "1" UseAction
 Item "1" *-- "1" PickupAction
 Item "1" *-- "1" PutdownAction
 
-Room "1" *-- "1..*" EnterAction
-Room "1" *-- "1" GetDoorsAction
+Room "1" *-- "1..*" EnterAction: > child
+Room "1" *-- "1" GetDoorsAction: > child
 
-Human "1" *-- "1..*" KillAction
-Human "1" *-- "1..*" StunAction
+Human "1" *-- "1..*" KillAction: > child
+Human "1" *-- "1..*" StunAction: > child
 
 @enduml
