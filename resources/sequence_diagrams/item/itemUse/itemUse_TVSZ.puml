@@ -1,11 +1,35 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title Player uses item - TVSZ
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Actor Player as p
+participant Inventory as inv
+participant Item as item
+participant ActionQueue as aq
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p -> inv: selectItem()
+activate inv
+
+inv -> item: use()
+activate item
+
+item -> aq: addAction(TVSZAction)
+activate aq
+
+item -> aq: addAction(decreaseDurationAction)
+
+loop action in queue
+    aq -> Action: execute()
+    activate Action
+    return true
+end loop
+
+return if any of the executes returned false then false, otherwise true
+
+return true
+
+return id: Identifier
+
 @enduml

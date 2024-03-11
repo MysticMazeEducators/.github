@@ -1,11 +1,32 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title Player uses item - Camambert
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Actor Player as p
+participant Inventory as inv
+participant Item as item
+participant ActionQueue as aq
+participant Room
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p -> inv: selectItem()
+activate inv
+
+inv -> item: use()
+activate item
+
+item -> aq: addAction(CamambertAction)
+activate aq
+item -> aq: addAction(DStunAction)
+
+aq -> Room: execute()
+activate Room
+
+return true
+return true
+return true
+return id: Identifier
+
+
 @enduml
