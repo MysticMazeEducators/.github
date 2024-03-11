@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Player moves
+autonumber
+
+actor Player as p
+participant Human as H
+participant Door as D
+participant Room as R
+
+p->H: move()
+activate H
+
+H->D: open()
+activate D
+
+D->R: enter()
+activate R
+
+R->R: DEnterAction.execute()
+
+return true
+return true
+return true
+@enduml

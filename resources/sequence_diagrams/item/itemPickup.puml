@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Player picks up an item
+autonumber
+
+Actor Player as P
+participant Human as H
+participant Inventory as Inv
+participant Item as It
+
+P->H: pickUpItem()
+activate H
+
+H->Inv:
+
+
+@enduml

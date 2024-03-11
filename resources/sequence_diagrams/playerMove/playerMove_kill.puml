@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Student moves into room with teacher present
+autonumber
+
+actor Player as p
+participant Student as S
+participant Door as D
+participant Room as R
+participant ActionQueue as A
+
+p->S: move()
+activate S
+
+S->D: open()
+activate D
+
+D->R: enter()
+activate R
+
+R->A: EnterAction.executeAll()
+activate A
+loop action in queue
+    A->action: action.execute()
+end loop
+return if any of the executes returned false then false, otherwise true
+A->S: kill();
+A->S: DKillAction.execute()
+return true
+return true
+return true
+@enduml
