@@ -19,6 +19,8 @@ item -> aq: addAction(TVSZAction)
 activate aq
 
 item -> aq: addAction(decreaseDurationAction)
+item -> aq: executeAll()
+
 
 loop action in queue
     aq -> Action: execute()

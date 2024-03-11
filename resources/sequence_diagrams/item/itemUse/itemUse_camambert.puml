@@ -19,6 +19,7 @@ activate item
 item -> aq: addAction(CamambertAction)
 activate aq
 item -> aq: addAction(DStunAction)
+item -> aq: executeAll()
 
 aq -> Room: execute()
 activate Room

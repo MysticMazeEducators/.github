@@ -15,11 +15,16 @@ activate inv
 inv->item: use()
 activate item
 
-item->aq: addAction(decreaseDuartionAction)
+item->aq: addAction(dTickProcessorAction)
 activate aq
-aq -> item: execute(TickProcessor)
-deactivate aq
+item -> aq: executeAll()
+loop action in queue
+    aq -> Action: execute()
+    activate Action
+    Action -> aq: Timer.tick()
+    deactivate Action
+end loop
+return if any of the executes returned false then false, otherwise truereturn true
 return true
 return true
-
 @enduml

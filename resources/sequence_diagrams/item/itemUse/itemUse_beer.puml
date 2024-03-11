@@ -15,11 +15,18 @@ activate inven
 inven -> item: use()
 activate item
 
-item-> aq: addAction(decreaseDurationAction)
+item -> aq: addAction(BeerGlassAction)
 activate aq
-item -> aq: addAction(TickProcessor)
+item -> aq: addAction(decreaseDurationAction)
+item -> aq: executeAll()
+loop action in queue
+    aq -> Action: execute()
+    activate Action
+    Action -> aq: true
+    deactivate Action
+end loop
+return if any of the executes returned false then false, otherwise true
 return true
-return true
-return true
+return id: Identifier
 
 @enduml
