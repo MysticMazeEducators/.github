@@ -30,4 +30,7 @@ A->S: DKillAction.execute()
 return true
 return true
 return true
+
+'TODO: All items dropping
+
 @enduml
