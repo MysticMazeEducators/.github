@@ -8,7 +8,7 @@ actor Player as p
 participant Human as H
 participant Door as D
 participant Room as R
-participant ActionQueue as A
+participant Action as A
 
 p->H: move()
 activate H
@@ -19,16 +19,15 @@ activate D
 D->R: enter()
 activate R
 
-loop action in queue
-    A->action: action.execute()
-end loop
+R->A: RoomAction.execute()
 activate A
+
 A->R: DEnterAction.execute()
+A->H: DStunAction.execute()
+deactivate A
 
 return true
 return true
-
-H->H: DStunAction.execute()
-
 return true
+
 @enduml

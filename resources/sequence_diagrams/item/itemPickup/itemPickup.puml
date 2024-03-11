@@ -6,13 +6,17 @@ autonumber
 
 Actor Player as P
 participant Human as H
-participant Inventory as Inv
-participant Item as It
+participant Item as I
+participant Inventory_of_Room as Inv
+participant Inventory_of_Human
 
 P->H: pickUpItem()
 activate H
 
-H->Inv:
+H->I: pickUp()
+activate I
+
+
 
 
 @enduml
