@@ -26,6 +26,8 @@ interface common::Timed{
 
 abstract class common::Entity{
   -id: Identifier
+  __
+  +getPosition(): Room
 }
 
 class common::Room{
@@ -38,6 +40,7 @@ class common::Room{
   +getDoors(): List of Door
   +enter(context: Context): boolean
   +leave(context: Context): boolean
+  +getPosition(): Room
 }
 
 Timed <|-- Room
@@ -97,6 +100,7 @@ class common::human::Teacher{
 Teacher - Map
 
 abstract class common::Item<u extends UseAction, pu extends PickupAction, pd extends PutdownAction, tp extends TickProcessor>{
+  -host: Inventory
   -useAction: u
   -pickUpAction: pu
   -putDownAction: pd
@@ -106,6 +110,7 @@ abstract class common::Item<u extends UseAction, pu extends PickupAction, pd ext
   +putDown(context: Context<Human, Item>): boolean
   +use(context: Context<Human, Item>): boolean
   +processTick(): boolean
+  +getPosition(): Room
 }
 
 Timed <|-- Item
@@ -116,7 +121,8 @@ class common::Door{
   +open(context: Context): boolean
 }
 
-class common::Inventory{
+class common::Inventory {
+  -host: Entity
   -maxSize: int
   -container: List of Item
   --
