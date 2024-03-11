@@ -1,32 +1,29 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-title Player uses item - Beer
+title Possible actions of item - Beer
 autonumber
 
 Actor Player as p
- participant Inventory as inven
- participant Item as item
- participant ActionQueue as aq
+participant Human as h
+participant Item as i
 
- p -> inven: selectItem()
-activate inven
+p -> h: use(Beer)
+activate h
+h -> i: use()
+activate i
+alt on: false
+    i <-> h: context.parent.getKillActions().addAction(this)
+    i -> i: on = true
+else on: true
+    alt duration > 0
+        i -> i: duration--
+    else duration == 0
+        i -> h: context.target.getKillActions().removeAction(this)
+    end
+end
 
-inven -> item: use()
-activate item
-
-item -> aq: addAction(BeerGlassAction)
-activate aq
-item -> aq: addAction(decreaseDurationAction)
-item -> aq: executeAll()
-loop action in queue
-    aq -> Action: execute()
-    activate Action
-    Action -> aq: true
-    deactivate Action
-end loop
-return if any of the executes returned false then false, otherwise true
 return true
-return id: Identifier
+return true
 
 @enduml

@@ -1,30 +1,30 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-title Player uses item - Cloth
+title Possible actions of item - Cloth
 autonumber
 
 Actor Player as p
-participant Inventory as inv
-participant Item as item
-participant ActionQueue as aq
+participant Human as h
+participant Item as i
+participant Room as r
 
-p->inv : selectItem()
-activate inv
+p->h : use(Cloth)
+activate h
 
-inv->item: use()
-activate item
-
-item->aq: addAction(dTickProcessorAction)
-activate aq
-item -> aq: executeAll()
-loop action in queue
-    aq -> Action: execute()
-    activate Action
-    Action -> aq: Timer.tick()
-    deactivate Action
-end loop
-return if any of the executes returned false then false, otherwise truereturn true
+h -> i: execute()
+activate i
+alt on: false
+    i -> r: getEnterActions().addAction(this)
+    activate r
+    return true
+    i -> i: on = true
+    i -> i: putdown()
+else on: true
+    i -> h: context.target.stun()
+    activate h
+    return true
+end
 return true
-return id: Identifier
+return true
 @enduml

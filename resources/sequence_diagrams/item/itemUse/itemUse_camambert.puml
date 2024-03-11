@@ -1,31 +1,29 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-title Player uses item - Camambert
+title Possible actions of item - Camambert
 autonumber
 
 Actor Player as p
-participant Inventory as inv
-participant Item as item
-participant ActionQueue as aq
-participant Room
+participant Human as h
+participant Item as i
+participant Room as r
 
-p -> inv: selectItem()
-activate inv
+p -> h: use(Camambert)
+activate h
 
-inv -> item: use()
-activate item
-
-item -> aq: addAction(CamambertAction)
-activate aq
-item -> aq: addAction(DStunAction)
-item -> aq: executeAll()
-
-aq -> Room: execute()
-activate Room
-
+alt on: false
+i -> r: getEnterActions().addAction(this)
+activate r
 return true
+i -> i: on = true
+i -> i: putdown()
+else on: true
+i -> h: context.target.stun()
+activate h
 return true
+end
+
 return true
 return id: Identifier
 
