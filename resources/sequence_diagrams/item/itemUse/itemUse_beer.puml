@@ -1,11 +1,25 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title Player uses item - Beer
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Actor Player as p
+ participant Inventory as inven
+ participant Item as item
+ participant ActionQueue as aq
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+ p -> inven: selectItem()
+activate inven
+
+inven -> item: use()
+activate item
+
+item-> aq: addAction(decreaseDurationAction)
+activate aq
+item -> aq: addAction(TickProcessor)
+return true
+return true
+return true
+
 @enduml

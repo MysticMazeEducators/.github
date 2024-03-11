@@ -1,11 +1,25 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title Player uses item - Cloth
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Actor Player as p
+participant Inventory as inv
+participant Item as item
+participant ActionQueue as aq
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p->inv : selectItem()
+activate inv
+
+inv->item: use()
+activate item
+
+item->aq: addAction(decreaseDuartionAction)
+activate aq
+aq -> item: execute(TickProcessor)
+deactivate aq
+return true
+return true
+
 @enduml
