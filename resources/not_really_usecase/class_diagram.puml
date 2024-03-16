@@ -1,0 +1,130 @@
+@startuml class_diagram
+
+abstract class Entity{
+  -id: int
+  -description: String
+  __
+  #create(): boolean
+  #delete(): boolean
+}
+abstract class Human{
+  -inventory: ItemContainer
+  -effects: list of Effects
+  -position: Room
+  __
+  #pickUpItem(item: Item): boolean
+  #dropItem(item: Item): boolean
+  #dropAllItems(): boolean
+  #affected(effect: Effect): boolean
+  #move(door: Door): boolean
+}
+class Student{
+  __
+  #die(): boolean
+}
+class Teacher{
+  __
+  #kill(room: Room): boolean
+}
+abstract class Item{
+  -user: Human
+  -position: Room
+  -charges: int
+  -type: effect
+  -enum effect{STUN, KILL, ...}
+  __
+  #execute(): boolean
+}
+class TVSZ{
+  __
+  #execute(): boolean
+}
+class BeerGlass{
+  __
+  #execute: boolean
+}
+class Camembert{
+  __
+  #execute(): boolean
+}
+class Mask{
+  __
+  #execute(): boolean
+}
+class Cloth{
+  __
+  #execute(): boolean
+}
+class Transistor{
+  -pair: Transistor
+  -isGrounded: boolean
+  __
+  #execute(): boolean
+  #pairing(transistor: Transistor): boolean
+  #place(): boolean
+}
+class Slipstick{
+  __
+  #execute(): boolean
+  #pickable(human: Human): boolean
+}
+class Room{
+  -doors: list of Door
+  -humans: list of Human
+  -inventory: ItemContainer
+  -capacity: int
+  -effects: list of Effect
+  __
+  #killAll(): boolean
+  #enter(): boolean
+  #applyEffects(): boolean
+}
+class Door{
+  target: Room
+  position: Room
+  __
+  #move(): boolean
+}
+class ItemContainer{
+  -items: list of Item
+}
+class Map{
+  -rooms: list of Room
+  -doors: list of Door
+  __
+  +generate(): boolean
+}
+class Timer{
+  __
+  -tick(): void
+}
+class Effect{
+  -enum effect{STUN, KILL, ...}
+}
+
+Entity <|-- Item
+Entity <|-- Human
+Entity <|-- Door
+Entity <|-- Room
+Item <|-- Mask
+Item <|-- Cloth
+Item <|--BeerGlass
+Item <|-- TVSZ
+Item <|-- Camembert
+Item <|-- Transistor
+Item <|-- Slipstick
+Human <|-- Teacher
+Human <|-- Student
+
+Map "1" -- "1..n" Room
+Map "1"-- "1..n" Door
+Human "1" -- Item
+Room "1" -- Item
+Human "0..capacity" -- "1" Room
+Human "1" -- "1" ItemContainer
+Room "1" -- "1" ItemContainer
+Transistor "1" -- "1" Transistor
+Human -- "0..n" Effect
+Room -- "0..n" Effect
+
+@enduml
