@@ -1,0 +1,17 @@
+Index: resources/state_chart/camamber_and_beer.puml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@startuml\r\n'https://plantuml.com/state-diagram\r\nscale 350 width\r\n\r\n@startuml\r\n[*] --> On_the_ground\r\nOn_the_ground --> Picked_up : pick_up\r\nPicked_up --> On_the_ground : drop/use\r\nPicked_up --> Used : use\r\nstate Used {\r\n [*] --> Valid_for_3_more_rounds\r\n Valid_for_3_more_rounds --> Valid_for_2_more_rounds : round_passes\r\n Valid_for_2_more_rounds --> Valid_for_1_more_round : round_passes\r\n Valid_for_1_more_round --> Effect_not_active : round_passes\r\n}\r\n\r\nUsed --> [*] : win/lose\r\nPicked_up --> [*] : win/lose\r\nOn_the_ground --> [*] : win/lose\r\n\r\n@enduml\r\n
+===================================================================
+diff --git a/resources/state_chart/camamber_and_beer.puml b/resources/state_chart/camamber_and_beer.puml
+--- a/resources/state_chart/camamber_and_beer.puml	
++++ b/resources/state_chart/camamber_and_beer.puml	
+@@ -14,8 +14,4 @@
+  Valid_for_1_more_round --> Effect_not_active : round_passes
+ }
+ 
+-Used --> [*] : win/lose
+-Picked_up --> [*] : win/lose
+-On_the_ground --> [*] : win/lose
+-
+ @enduml
