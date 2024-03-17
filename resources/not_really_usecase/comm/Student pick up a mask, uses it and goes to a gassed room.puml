@@ -1,0 +1,23 @@
+@startuml
+skinparam linestyle ortho
+
+rectangle "Skeleton" as SK
+rectangle "Room1" as R1
+rectangle "Room2" as R2
+rectangle "Mask" as M
+rectangle "Student" as S
+rectangle "Door" as D
+
+SK --> R1: Create() setHumans(Student) setCapacity(10) setInventory(Mask) setDoors(Door)
+SK --> R2: Create() setCapacity(10) setEffects(Gas)
+SK --> M: Create() setPosition(Room1) setUser(null) setType(Gas)
+SK --> S: Create() setPosition(Room1)
+SK --> D: Create() setPosition(Room1) setTarget(Room2)
+
+R1 -- D
+R2 -- D
+S -- D
+R1 -- M
+R1 -- S
+M -- S
+@enduml
