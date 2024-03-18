@@ -2,11 +2,23 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
+title Student picks up an item
 
 actor Player as p
+participant Room as r
+participant ItemContainer as inv
 participant Student as student
-participant ItemContainer as i
 
+p->r: getInventory()
+activate r
 
+r->student: pickUpItem(item: Item)
+activate student
 
+student->inv: getItem()
+activate inv
+
+return item: Item
+return true
+return inv: ItemContainer
 @enduml
