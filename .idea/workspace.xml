@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e93f210f-f6d6-41dc-9b8f-69b01def1762" name="Changes" comment="Got rid of the endings in the state charts and put in guards" />
+    <list default="true" id="376ca7cb-d428-42e7-a0ac-ea47522df509" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_drops_item.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_gets_killed_by_teacher.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_picks_up_an_item.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_picks_up_transistors_pairing.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_picks_up_transistors_teleporting.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_puts_down_a_transistor.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_puts_on_mask_and_switches_rooms.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_stunned_item_drop.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_switches_rooms.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_switches_rooms_with_stunned_teacher.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_switches_rooms_with_teacher_and_beer.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_uses_item_beer.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_uses_item_camambert.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sequence_diagrams/teacher_kills_student_other_student_comes_in_with_tvsz.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,23 +34,13 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="feature/sequence-diagrams-mk2" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectCodeStyleSettingsMigration">
-    <option name="version" value="2" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2dVGcIyTVZWE2NDD4aoyN9mjHgQ" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2dq3jCK3Q1uj1T7SzQCWTbRZz2j" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,57 +50,29 @@
     "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/pappa_23k1biu/Documents/repo-k/MysticMazeEducators/.github/resources/class_diagram",
+    "git-widget-placeholder": "class__diagram__javitott",
+    "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e93f210f-f6d6-41dc-9b8f-69b01def1762" name="Changes" comment="" />
-      <created>1710085909785</created>
+      <changelist id="376ca7cb-d428-42e7-a0ac-ea47522df509" name="Changes" comment="" />
+      <created>1710721913793</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1710085909785</updated>
-      <workItem from="1710085910850" duration="5246000" />
-      <workItem from="1710111821054" duration="247000" />
-      <workItem from="1710542721832" duration="2628000" />
-      <workItem from="1710548514095" duration="41000" />
-      <workItem from="1710682478791" duration="3401000" />
+      <updated>1710721913793</updated>
+      <workItem from="1710721914920" duration="1726000" />
     </task>
-    <task id="LOCAL-00001" summary="not sure">
-      <option name="closed" value="true" />
-      <created>1710086014860</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1710086014860</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Got rid of the endings in the state charts and put in guards">
-      <option name="closed" value="true" />
-      <created>1710094804650</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1710094804650</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="not sure" />
-    <MESSAGE value="Got rid of the endings in the state charts and put in guards" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got rid of the endings in the state charts and put in guards" />
   </component>
 </project>
