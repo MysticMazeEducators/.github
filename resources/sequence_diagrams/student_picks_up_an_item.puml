@@ -1,5 +1,6 @@
 @startuml sequence_diagram
 
+<<<<<<< HEAD
 participant Student
 participant Room
 participant Item
@@ -15,6 +16,30 @@ Room --> ItemContainer: tárgy
 deactivate Room
 ItemContainer --> Student: true
 deactivate ItemContainer
+=======
+autonumber
+title Student picks up an item
 
+actor Player as p
+participant Room as r
+participant ItemContainer as inv
+participant Student as student
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27
 
+p->r: getInventory()
+activate r
+
+<<<<<<< HEAD
 @enduml
+=======
+r->student: pickUpItem(item: Item)
+activate student
+
+student->inv: getItem()
+activate inv
+
+return item: Item
+return true
+return inv: ItemContainer
+@enduml
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27

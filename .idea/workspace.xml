@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="5ed5641b-6eeb-487f-bdea-43613df004ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/resources/not_really_usecase/class_diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/not_really_usecase/class_diagram.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sequence_diagrams/student_drops_item.puml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_drops_item.puml" afterDir="false" />
+=======
+    <list default="true" id="376ca7cb-d428-42e7-a0ac-ea47522df509" name="Changes" comment="">
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27
       <change beforePath="$PROJECT_DIR$/resources/sequence_diagrams/student_picks_up_an_item.puml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sequence_diagrams/student_picks_up_an_item.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -14,25 +18,50 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="UML Sequence" />
+      </list>
+    </option>
+  </component>
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
+<<<<<<< HEAD
   "customColor": "",
   "associatedIndex": 4
 }]]></component>
   <component name="ProjectId" id="2dq9CIgYuX91ECYKkAVb9q2ng5A" />
+=======
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2dq3jCK3Q1uj1T7SzQCWTbRZz2j" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< HEAD
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "class__diagram__javitott",
     "last_opened_file_path": "C:/Users/koncz/.github",
+=======
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "class__diagram__javitott",
+    "kotlin-language-version-configured": "true",
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -44,12 +73,21 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="5ed5641b-6eeb-487f-bdea-43613df004ce" name="Changes" comment="" />
       <created>1710724616372</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1710724616372</updated>
       <workItem from="1710724617671" duration="7435000" />
+=======
+      <changelist id="376ca7cb-d428-42e7-a0ac-ea47522df509" name="Changes" comment="" />
+      <created>1710721913793</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710721913793</updated>
+      <workItem from="1710721914920" duration="3312000" />
+>>>>>>> ce7da84820440a50117083f111a5b260db2a8b27
     </task>
     <servers />
   </component>
