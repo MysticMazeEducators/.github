@@ -4,27 +4,29 @@ abstract class Entity{
   -id: int
   -description: String
   __
-  #create(): boolean
-  #delete(): boolean
+  +applyEffect(effect: Effect): boolean
+  +create(): boolean
+  +delete(): boolean
 }
 abstract class Human{
   -inventory: ItemContainer
   -effects: list of Effects
   -position: Room
   __
-  #pickUpItem(item: Item): boolean
-  #dropItem(item: Item): boolean
-  #dropAllItems(): boolean
-  #affected(effect: Effect): boolean
-  #move(door: Door): boolean
+  +pickUpItem(item: Item): boolean
+  +dropItem(item: Item): boolean
+  +dropAllItems(): boolean
+  +affected(effect: Effect): boolean
+  +move(door: Door): boolean
+  +selectItem(id: int): Item
 }
 class Student{
   __
-  #die(): boolean
+  +die(): boolean
 }
 class Teacher{
   __
-  #kill(room: Room): boolean
+  +kill(room: Room): boolean
 }
 abstract class Item{
   -user: Human
@@ -33,40 +35,40 @@ abstract class Item{
   -type: effect
   -enum effect{STUN, KILL, ...}
   __
-  #execute(): boolean
+  +execute(): boolean
 }
 class TVSZ{
   __
-  #execute(): boolean
+  +execute(): boolean
 }
 class BeerGlass{
   __
-  #execute: boolean
+  +execute(): boolean
 }
 class Camembert{
   __
-  #execute(): boolean
+  +execute(): boolean
 }
 class Mask{
   __
-  #execute(): boolean
+  +execute(): boolean
 }
 class Cloth{
   __
-  #execute(): boolean
+  +execute(): boolean
 }
 class Transistor{
   -pair: Transistor
   -isGrounded: boolean
   __
-  #execute(): boolean
-  #pairing(transistor: Transistor): boolean
-  #place(): boolean
+  +execute(): boolean
+  +pairing(transistor: Transistor): boolean
+  +place(): boolean
 }
 class Slipstick{
   __
-  #execute(): boolean
-  #pickable(human: Human): boolean
+  +execute(): boolean
+  +pickable(human: Human): boolean
 }
 class Room{
   -doors: list of Door
@@ -75,18 +77,20 @@ class Room{
   -capacity: int
   -effects: list of Effect
   __
-  #killAll(): boolean
-  #enter(): boolean
-  #applyEffects(): boolean
+  +killAll(): boolean
+  +enter(): boolean
+  +receiveItem(item: Item): boolean
 }
 class Door{
   target: Room
   position: Room
   __
-  #move(): boolean
+  +move(): boolean
 }
 class ItemContainer{
   -items: list of Item
+  --
+  +transferItem(ic: ItemContainer, item: Item): boolean
 }
 class Map{
   -rooms: list of Room
