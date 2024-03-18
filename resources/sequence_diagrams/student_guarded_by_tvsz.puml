@@ -2,7 +2,7 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-title Student gets killed by teacher
+title Student guarded by TVSZ
 skinparam dpi 600
 
 actor Player as p
@@ -33,19 +33,13 @@ activate r
 r -> s: affected(protected: Effect)
 activate s
 return false
-r -> s: die()
+
+r -> s: Check if inventory contains TVSZ item
 activate s
 
-s -> s: dropAllItems()
-note left
-    Students drop all of their items on death.
-    For details, see "Student moves into gassed room" as example
-end note
-activate s
 return true
-return true
-return true
-return true
+return false
+return false
 return true
 return true
 return true

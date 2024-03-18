@@ -2,10 +2,27 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
+title Student switches rooms
+skinparam dpi 600
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor Player as p
+participant Student as s
+participant Door as d
+participant Room as r
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p -> s: move(door: Door)
+activate s
+
+s -> d: move()
+activate d
+
+d -> r: enter()
+activate r
+
+return true
+
+return true
+
+return true
+
 @enduml

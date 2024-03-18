@@ -3,22 +3,24 @@
 
 autonumber
 title Student picks up an item
+skinparam dpi 600
 
 actor Player as p
+participant Student as student
 participant Room as r
 participant ItemContainer as inv
-participant Student as student
 
-p->r: getInventory()
-activate r
-
-r->student: pickUpItem(item: Item)
+p->student: pickUpItem(item: Item)
 activate student
 
-student->inv: getItem()
-activate inv
-
-return item: Item
-return true
+student -> r: getInventory()
+activate r
 return inv: ItemContainer
+
+student -> inv: transferItem(inv: ItemContainer, item: Item)
+activate inv
+return true
+
+return true
+
 @enduml

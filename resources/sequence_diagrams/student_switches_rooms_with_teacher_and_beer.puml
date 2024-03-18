@@ -2,10 +2,40 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
+title Student moves into a room with a teacher inside, guarded by beer
+skinparam dpi 600
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor Player as p
+participant Student as s
+participant Door as d
+participant Room as r
+participant Teacher as t
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p -> s: move(door: Door)
+activate s
+
+s -> d: move()
+activate d
+
+d -> r: enter()
+activate r
+
+r -> t: kill(room: Room)
+activate t
+
+t -> t: affected(stunned: Effect)
+note right
+    affected(...) returns false
+    since Teacher is not stunned
+end note
+
+t -> r: killAll()
+
+r -> s: affected(protected: Effect)
+s -> r: true
+r -> t: false
+return false
+return true
+return true
+return true
 @enduml

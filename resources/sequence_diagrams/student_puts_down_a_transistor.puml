@@ -2,10 +2,29 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
+title Student puts down a transistor
+skinparam dpi 600
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor Player as p
+participant Student as s
+participant Transistor as t
+participant Room as r
+participant ItemContainer as ic
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p -> s: selectItem(id: int)
+activate s
+
+s -> t: place()
+activate t
+
+t -> r: getInventory()
+activate r
+return roomInv: ItemContainer
+
+t -> ic: transferItem(studentInv: ItemContainer, item: Item)
+activate ic
+return true
+return true
+return true
+
 @enduml

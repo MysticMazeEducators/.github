@@ -2,10 +2,29 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
+title Pairing transistors
+skinparam dpi 600
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+actor Player as p
+participant Student as s
+participant Transistor1 as t1
+participant Transistor2 as t2
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+p -> s: selectItem(id: int)
+activate s
+
+s -> t1: execute()
+activate t1
+
+t1 -> s: selectItem(id2: int)
+s -> t1: transistor2: Item
+
+t1 -> t2: pairing(transistor1: Transistor)
+activate t2
+
+return true
+
+return false
+return
+
 @enduml

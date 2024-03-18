@@ -2,14 +2,13 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-title Student moves into gassed room
+title Student moves into gassed room with mask
 skinparam dpi 600
 
 actor Player as p
 participant Student as s
 participant Door as d
 participant Room as r
-participant ItemContainer as ic
 
 p -> s: move(door: Door)
 activate s
@@ -29,29 +28,11 @@ r -> s: applyEffect(stun: Effect)
 activate s
 
 s -> s: affected(unstunnable: Effect)
-
 activate s
+return true
+
 return false
-
-return true
-
-r -> s: dropAllItems()
-activate s
-
-s -> r: getInventory()
-activate r
-return roomInv: ItemContainer
-
-
-loop item in student.inventory
-    s -> ic: transferItem(studentInv: ItemContainer, item: Item)
-    activate ic
-    return true
-end loop
-
 return true
 return true
 return true
-return true
-
 @enduml

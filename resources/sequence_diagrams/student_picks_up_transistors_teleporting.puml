@@ -2,7 +2,31 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
+title Student uses item - Transistor
+skinparam dpi 600
 
+actor Player as p
+participant Student as s
+participant Transistor1 as t1
+participant Transistor2 as t2
 
+p -> s: selectItem(id: int)
+activate s
+
+s -> t1: execute()
+activate t1
+
+t1 -> t1: getPair()
+
+t1 -> t2: getPosition()
+activate t2
+return pos: Room
+
+t1 -> s: setPosition(pos: Room)
+activate s
+return true
+
+return true
+return
 
 @enduml

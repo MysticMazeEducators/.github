@@ -2,22 +2,21 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-title Student uses item - Camambert
+title Student puts on a mask
 skinparam dpi 600
 
 actor Player as p
 participant Student as s
-participant Room as r
-participant Camambert as c
+participant Mask as m
 
 p -> s: selectItem(id: int)
 activate s
 
-s -> c: execute()
-activate c
+s -> m: execute()
+activate m
 
-c -> r: applyEffect(gassed: Effect)
-activate r
+m -> s: applyEffect(unstunnable: Effect)
+activate s
 return true
 
 return true
