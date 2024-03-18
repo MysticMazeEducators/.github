@@ -5,7 +5,6 @@ autonumber
 
 actor Player as p
 participant Student as student
-participant Room as r
 participant ItemContainer as i
 
 
