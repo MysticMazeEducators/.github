@@ -1,12 +1,20 @@
-@startuml
-'https://plantuml.com/sequence-diagram
+@startuml sequence_diagram
 
-autonumber
+participant Student
+participant Room
+participant Item
+participant ItemContainer
 
-actor Player as p
-participant Student as student
-participant ItemContainer as i
+note left of Student: Hallgató felvételi folyamat\na tárgyra
 
+Student -> ItemContainer: pickUpItem(tárgy)
+activate ItemContainer
+ItemContainer -> Room: getItem(tárgy)
+activate Room
+Room --> ItemContainer: tárgy
+deactivate Room
+ItemContainer --> Student: true
+deactivate ItemContainer
 
 
 @enduml

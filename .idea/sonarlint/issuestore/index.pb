@@ -1,0 +1,9 @@
+
+c
+3resources/sequence_diagrams/student_drops_item.puml,9\0\9099011b401dfdf79b8bc29dbd4ec550b635d129
+i
+9resources/sequence_diagrams/student_picks_up_an_item.puml,e\c\ec08a54f66b9172ccfe80d19006e8514469d0e8f
+g
+7resources/sequence_diagrams/student_switches_rooms.puml,8\8\88526f4fc1f988aa2c1033f0c16facfacc708294
+_
+/resources/not_really_usecase/class_diagram.puml,3\9\39dc79eba70d80860f4c366c5136e02149d045ac
